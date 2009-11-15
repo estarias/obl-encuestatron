@@ -11,4 +11,5 @@ package ort.discom.obl.dominio;
  */
 public class Cliente {
 
+    
 }
