@@ -9,6 +9,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.net.Socket;
 import ort.arqsoft.obl.utils.LeerXml;
 import ort.arqsoft.obl.utils.PrintLog;
@@ -41,19 +42,21 @@ public class SocketWorker extends Thread {
     @Override
     @SuppressWarnings("static-access")
     public void run() {
-        String linea = null;
-        String tipo;
+        String xml = null;
+        String tipo_xml;
         while (true) {
-            linea = recibeDatos();
-            if (linea != null) {
-                tipo = lx.obtenerTipo(linea);
+            xml = recibeDatos();
+            if (xml.equals("endSocket"))
+                break;
+            if (xml != null) {
+                tipo_xml = lx.obtenerTipo(xml);
 
-                if (tipo != null) {
-                    if (tipo.equals("pedir_listas")) {
+                if (tipo_xml != null) {
+                    if (tipo_xml.equals("pedir_listas")) {
                         //respondiendo al pedido de listas...
-                        lx = new LeerXml(linea);
+                        lx = new LeerXml(xml);
                         this.enviaDatos(lx.respuestaXML);
-                    } else if (tipo.equals("poner_voto")) {
+                    } else if (tipo_xml.equals("poner_voto")) {
                         //respondiendo a la votacion...
                         this.enviaDatos("votacion realizada correctamente!!");
                     }
@@ -66,10 +69,13 @@ public class SocketWorker extends Thread {
         String datos = null;
         try {
             this.in = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
-            datos = this.in.readLine();
-            this.pl.printMsg("datos recibidos: " + datos);
+            //if (in.ready())
+            datos = this.in.readLine();            
+            //this.pl.printMsg("datos recibidos: " + datos);
         } catch (IOException ex) {
-            ex.printStackTrace();
+            ex.printStackTrace();            
+            server.cerrar();
+            datos = "endSocket";
         }
         return datos;
     }
@@ -82,57 +88,11 @@ public class SocketWorker extends Thread {
      * @param datos
      */
     public void enviaDatos(String datos) {
-        this.server.enviarATodos(this.client, datos);
-    //this.pl.printMsg(">>server: " + datos);
+        try {
+            PrintWriter out = new PrintWriter(this.getSocketClient().getOutputStream(), true);
+            out.println(datos);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
 }
-/*
- * public class SocketWorker extends Thread {
-private Socket client = null;
-private BufferedReader in = null;
-//private BufferedWriter out = null;
-private PrintLog pl = null;
-private SocketServer server = null;
-
-public SocketWorker(SocketServer server, Socket client) {
-this.server = server;
-this.client = client;
-this.pl = PrintLog.getInstance();
-this.pl.setPrefix("[server]");
-this.pl.printMsg("Port para el dialogo: " + this.client.getPort());
-}
-
-public Socket getSocketClient(){
-return this.client;
-}
-
-public void run() {
-String linea = null;
-while (true) {
-linea = leerDatoss();
-if (linea != null) {
-
-this.pl.printMsg("<<client: " + linea);
-this.enviarDatos("[echo server]" + "pepepeeeee" + linea);
-
-}
-}
-}
-
-public String leerDatoss() {
-String datos = null;
-try {
-this.in = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
-datos = this.in.readLine();
-} catch (IOException ex) {
-ex.printStackTrace();
-}
-return datos;
-}
-
-
-public void enviarDatos(String datos) {
-this.server.enviarATodos(this.client, datos);
-this.pl.printMsg(">>server: " + datos);
-}
- */
