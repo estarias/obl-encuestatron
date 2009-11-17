@@ -134,7 +134,7 @@ public class LeerXml {
                 }
             }
 
-            respuestaXML = "respuesta desde el socket getDataFromXMLVotar";
+            respuestaXML = "<circuito><circuito-tipo_msj><tipo_msj>confirma_voto</tipo_msj></circuito-tipo_msj><circuito_data><partido_politico></partido_politico><nro_lista></nro_lista></circuito_data></circuito>";
 
         } catch (Exception e) {
             e.printStackTrace();
