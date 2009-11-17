@@ -3,3 +3,5 @@ usr: obl
 passw: obl
 
 ruta: dentro del proy /DB
+
+en uso - Esteban: 11:47 pm
