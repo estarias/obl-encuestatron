@@ -33,10 +33,10 @@ import ort.arqsoft.obl.utils.WriterLog;
 public class frmUrna extends javax.swing.JFrame {
     private DefaultListModel modelo;
 
-    public final static int INICIAL = 0;
-    public final static int PRIMERO = 1;
-    public final static int SEGUNDO = 2;
-    public final static int TERCERO = 3;
+    public final static int INICIAL = 0; //cuando se ingresa al formulario o cuando se realiza un voto
+    public final static int PRIMERO = 1; //cuando se cumple el tiempo de espera
+    public final static int SEGUNDO = 2; //cuando se elige un partido politico
+    public final static int TERCERO = 3; //cuando se elige una lista
     
     public final static String PARTDO1 = "P1";
     public final static String PARTDO2 = "P2";
@@ -55,13 +55,16 @@ public class frmUrna extends javax.swing.JFrame {
     /** Creates new form frmUrna */
     public frmUrna() {
         initComponents();
-
-        formEnabled(INICIAL);
         listaVotada = new clsLista();
+        
+        formEnabled(INICIAL);        
 
-        if (!isConnected){
-            isConnected = clsSocketCommunication.connectSocket();            
-        }
+        if (!isConnected)
+            isConnected = clsSocketCommunication.connectSocket();
+
+        if (isConnected)
+            obtenerDatos();
+       
         connectionStatus();
     }
 
@@ -122,23 +125,23 @@ public class frmUrna extends javax.swing.JFrame {
     }
 
     @SuppressWarnings("static-access")
-    private void obtenerListas(){                        
+    private void obtenerDatos(){
         Listas = new ArrayList<clsLista>();
-        String lectura = null;
-        String tipo = null;
+        String xml = null;
+        String tipo_xml = null;
         
         if (isConnected){            
-            lectura = clsSocketCommunication.readData();
-            tipo = lx.obtenerTipo(lectura);
-            if(tipo.equals("pedir_listas")){
-                lx = new ReadXML();
-                Listas = lx.obtenerListas(lectura);
-                cargarLista();
-            }else if(tipo.equals("poner_voto")){
-                
+            xml = clsSocketCommunication.readData();
+            if(xml != null){
+                tipo_xml = lx.obtenerTipo(xml);
+                if(tipo_xml.equals("envio_listas")){
+                    lx = new ReadXML();
+                    Listas = lx.obtenerListas(xml);
+                    cargarLista();
+                }else if(tipo_xml.equals("poner_voto")){
+                    System.out.println("Voto realizado correctamente");
+                }
             }
-                
-            
         }
     }
 
@@ -183,6 +186,11 @@ public class frmUrna extends javax.swing.JFrame {
         btnVotar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                close(evt);
+            }
+        });
 
         pnlTitulo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         pnlTitulo.setName(""); // NOI18N
@@ -385,15 +393,15 @@ public class frmUrna extends javax.swing.JFrame {
                 .addGap(398, 398, 398))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(pnlPartidosPoliticos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(pnlListas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(pnlTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -415,16 +423,16 @@ public class frmUrna extends javax.swing.JFrame {
 
     private void btnConectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConectarActionPerformed
         // TODO add your handling code here:
-        if (!isConnected)
-            isConnected = clsSocketCommunication.connectSocket();
-        connectionStatus();        
+//        if (!isConnected)
+//            isConnected = clsSocketCommunication.connectSocket();
+//        connectionStatus();
     }//GEN-LAST:event_btnConectarActionPerformed
 
     private void btnDesconectarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesconectarActionPerformed
         // TODO add your handling code here:
-        if (isConnected)
-            isConnected = clsSocketCommunication.disconnectSocket();
-        connectionStatus();
+//        if (isConnected)
+//            isConnected = clsSocketCommunication.disconnectSocket();
+//        connectionStatus();
         //this.SocketClient.desconectar();        
 }//GEN-LAST:event_btnDesconectarActionPerformed
 
@@ -464,10 +472,8 @@ public class frmUrna extends javax.swing.JFrame {
     
     private void btnLeerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLeerActionPerformed
         // TODO add your handling code here:
-//        String lectura = null;
-        //lectura = this.SocketClient.leerDatos();
-        if (isConnected)
-            obtenerListas();        
+//        if (isConnected)
+//            obtenerDatos();
 }//GEN-LAST:event_btnLeerActionPerformed
 
     private void btnP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP1ActionPerformed
@@ -499,6 +505,13 @@ public class frmUrna extends javax.swing.JFrame {
         listaVotada.setPartidoPolitico(PARTDO5);
         this.formEnabled(SEGUNDO);
     }//GEN-LAST:event_btnP5ActionPerformed
+
+    private void close(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_close
+        // TODO add your handling code here:
+        if (isConnected)
+            isConnected = clsSocketCommunication.disconnectSocket();
+        connectionStatus();
+    }//GEN-LAST:event_close
 
     /**
      * @param args the command line arguments

@@ -36,30 +36,22 @@ public class SocketClient {
         out = new PrintWriter(socket.getOutputStream(), true);
         out.println(datos);
     }
-
-//    public String consultarDatos(String datos) throws IOException{
-//        out = new PrintWriter(socket.getOutputStream(), true);
-//        out.println(datos);
-//        socket.getInputStream();
-//        in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//        return in.readLine();
-//    }
     
     public String leerDatos() throws IOException{
         String datos = null;
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        //if (!in.readLine().equals(null))
-        datos = in.readLine();
+        if (in.ready())
+            datos = in.readLine();               
         
         return datos;
     }
 
     public void desconectar() throws IOException{
         if (socket != null) socket.close();
-        if (out != null) socket.close();
-        if (in != null) socket.close();
-//        if (out != null) out.close();
-//        if (in != null) in.close();
+        if (out != null) out.close();
+        if (in != null) in.close();
+//        if (out != null) socket.close();
+//        if (in != null) socket.close();
     }
 }
         

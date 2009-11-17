@@ -15,7 +15,7 @@ public class ReadXML {
    public static String respuestaXML = null;
 
    public static String obtenerTipo(String xml){
-        String tipo = null;
+        String tipo_xml = "";
         try {
 
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -32,17 +32,17 @@ public class ReadXML {
             Element tipoMsjElement = (Element) tipoMsjElemntList.item(0);
             NodeList tipoMsj = tipoMsjElement.getChildNodes();
 
-            if (((Node) tipoMsj.item(0)).getNodeValue().equals("pedir_listas")){
-                tipo = "pedir_listas";
-            }else if (((Node) tipoMsj.item(0)).getNodeValue().equals("poner_voto")){
-                tipo = "poner_voto";
+            if (((Node) tipoMsj.item(0)).getNodeValue().equals("envio_listas")){
+                tipo_xml = "envio_listas";
+            }else if (((Node) tipoMsj.item(0)).getNodeValue().equals("confirma_voto")){
+                tipo_xml = "confirma_voto";
             }
 
        }
     catch (Exception e) {
         e.printStackTrace();
     }
-        return tipo;
+        return tipo_xml;
     }
 
     public static ArrayList<clsLista> obtenerListas(String xml) {

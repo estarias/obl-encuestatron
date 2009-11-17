@@ -43,3 +43,13 @@ VOTACIÓN REALIZADA CON FECHA Y HORA: Tue Nov 17 18:51:45 UYST 2009
 Partido: P1
 Lista: P1 101 - lalalaaaa
 *************************************************************
+*************************************************************
+VOTACIÓN REALIZADA CON FECHA Y HORA: Tue Nov 17 20:08:04 GMT-03:00 2009
+Partido: P1
+Lista: P1 101 - lalalaaaa
+*************************************************************
+*************************************************************
+VOTACIÓN REALIZADA CON FECHA Y HORA: Tue Nov 17 20:08:29 GMT-03:00 2009
+Partido: P4
+Lista: P1 101 - lalalaaaa
+*************************************************************

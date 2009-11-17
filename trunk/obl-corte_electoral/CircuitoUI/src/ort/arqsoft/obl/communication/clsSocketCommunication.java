@@ -28,12 +28,9 @@ public class clsSocketCommunication {
         try {
             SocketClient.conectar(nombreServer, puerto);
 
-            sendData("<circuito><circuito-tipo_msj><tipo_msj>pedir_listas</tipo_msj></circuito-tipo_msj><circuito_data><nro_circuito>600</nro_circuito><fecha>13/11/2009</fecha><hora>22:48</hora></circuito_data></circuito>");
-            return true;        
-        } catch (IOException ex) {
-            //this.setTitle("Urna digital - [Trabajando sin conexión...] " + ex.getMessage());
+            sendData("<circuito><circuito-tipo_msj><tipo_msj>pedir_listas</tipo_msj></circuito-tipo_msj><circuito_data><nro_circuito>600</nro_circuito><fecha>13/11/2009</fecha><hora>22:48</hora></circuito_data></circuito>");            return true;        
+        } catch (IOException ex) {          
             return false;
-            //ex.printStackTrace();
         }
     }
 
@@ -61,13 +58,5 @@ public class clsSocketCommunication {
         } catch (IOException ex) {
             return "";
         }
-    }
-    
-//    public static ArrayList<clsPartidoPolitico> readData(){
-//        clsPartidoPolitico Partido;
-//        clsLista Lista;
-//        ArrayList<clsPartidoPolitico>  ListasPartidos = new ArrayList<clsPartidoPolitico>();
-//            return ListasPartidos;
-//    }
-    
+    }   
 }
