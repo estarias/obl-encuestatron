@@ -61,7 +61,10 @@ public class frmUrna extends javax.swing.JFrame {
 
         if (!isConnected)
             isConnected = clsSocketCommunication.connectSocket();
-
+    
+        esperaParaIniciar();
+        esperaParaIniciar();
+        
         if (isConnected)
             obtenerDatos();
        
@@ -137,7 +140,7 @@ public class frmUrna extends javax.swing.JFrame {
                 if(tipo_xml.equals("envio_listas")){
                     lx = new ReadXML();
                     Listas = lx.obtenerListas(xml);
-                    cargarLista();
+                    //cargarLista();
                 }else if(tipo_xml.equals("poner_voto")){
                     System.out.println("Voto realizado correctamente");
                 }
@@ -479,38 +482,43 @@ public class frmUrna extends javax.swing.JFrame {
     private void btnP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP1ActionPerformed
         // TODO add your handling code here:
         listaVotada.setPartidoPolitico(PARTDO1);
+        cargarLista();
         this.formEnabled(SEGUNDO);
     }//GEN-LAST:event_btnP1ActionPerformed
 
     private void btnP2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP2ActionPerformed
         // TODO add your handling code here:
         listaVotada.setPartidoPolitico(PARTDO2);
+        cargarLista();
         this.formEnabled(SEGUNDO);
     }//GEN-LAST:event_btnP2ActionPerformed
 
     private void btnP3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP3ActionPerformed
         // TODO add your handling code here:
         listaVotada.setPartidoPolitico(PARTDO3);
+        cargarLista();
         this.formEnabled(SEGUNDO);
     }//GEN-LAST:event_btnP3ActionPerformed
 
     private void btnP4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP4ActionPerformed
         // TODO add your handling code here:
         listaVotada.setPartidoPolitico(PARTDO4);
+        cargarLista();
         this.formEnabled(SEGUNDO);
     }//GEN-LAST:event_btnP4ActionPerformed
 
     private void btnP5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP5ActionPerformed
         // TODO add your handling code here:
         listaVotada.setPartidoPolitico(PARTDO5);
+        cargarLista();
         this.formEnabled(SEGUNDO);
     }//GEN-LAST:event_btnP5ActionPerformed
 
     private void close(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_close
         // TODO add your handling code here:
-        if (isConnected)
-            isConnected = clsSocketCommunication.disconnectSocket();
-        connectionStatus();
+//        if (isConnected)
+//            isConnected = clsSocketCommunication.disconnectSocket();
+        //connectionStatus();
     }//GEN-LAST:event_close
 
     /**

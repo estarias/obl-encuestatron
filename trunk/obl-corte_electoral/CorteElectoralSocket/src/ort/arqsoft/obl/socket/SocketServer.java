@@ -21,7 +21,7 @@ import ort.arqsoft.obl.utils.PrintLog;
 public class SocketServer {
     private ServerSocket server = null;
     private PrintLog pl = null;
-    private List<SocketWorker> workers = new ArrayList<SocketWorker>();
+    //private List<SocketWorker> workers = new ArrayList<SocketWorker>();
 
 
     public SocketServer(int puerto) {
@@ -34,27 +34,25 @@ public class SocketServer {
         }
     }
 
-
     public void escucharPeticiones() {
         this.pl.printMsg("Escuchando peticiones (port: " + server.getLocalPort() + ")");
-
         while (true) {
             SocketWorker worker;
             try {
                 worker = new SocketWorker(this, server.accept());
                 this.pl.printMsg("Cliente conectado OK!");
-                this.workers.add(worker);
+                //this.workers.add(worker);
                 worker.start();
-
-            } catch (IOException ex) {
+            } catch (IOException ex) {                
                 System.out.println(ex.getMessage());
+                break;
             }
         }
     }
 
-
+/*
     public void enviarATodos(Socket client, String datos) {
-        for(SocketWorker worker: this.workers){
+        //for(SocketWorker worker: this.workers){
             //No se le envía el echo del server al client que envió el mensaje
             //solamente a los demás.
             //if (worker.getSocketClient().getPort() != client.getPort()){
@@ -66,9 +64,8 @@ public class SocketServer {
                     ex.printStackTrace();
                 }
             //}
-        }
-    }
-
+        //}
+    }*/
 
     public void cerrar() {
         try {

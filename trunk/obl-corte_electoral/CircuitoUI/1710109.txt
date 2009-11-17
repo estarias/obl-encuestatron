@@ -53,3 +53,23 @@ VOTACIÓN REALIZADA CON FECHA Y HORA: Tue Nov 17 20:08:29 GMT-03:00 2009
 Partido: P4
 Lista: P1 101 - lalalaaaa
 *************************************************************
+*************************************************************
+VOTACIÓN REALIZADA CON FECHA Y HORA: Tue Nov 17 21:50:21 ART 2009
+Partido: P5
+Lista: P5 501 - lalalaaaa
+*************************************************************
+*************************************************************
+VOTACIÓN REALIZADA CON FECHA Y HORA: Tue Nov 17 21:50:31 ART 2009
+Partido: P3
+Lista: P3 300 - lalalaaaa
+*************************************************************
+*************************************************************
+VOTACIÓN REALIZADA CON FECHA Y HORA: Tue Nov 17 21:50:43 ART 2009
+Partido: P4
+Lista: P4 401 - lalalaaaa
+*************************************************************
+*************************************************************
+VOTACIÓN REALIZADA CON FECHA Y HORA: Tue Nov 17 21:51:21 ART 2009
+Partido: P5
+Lista: P5 501 - lalalaaaa
+*************************************************************

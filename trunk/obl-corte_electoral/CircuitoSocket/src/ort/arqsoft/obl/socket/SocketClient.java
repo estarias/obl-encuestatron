@@ -39,7 +39,9 @@ public class SocketClient {
     
     public String leerDatos() throws IOException{
         String datos = null;
+
         in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+
         if (in.ready())
             datos = in.readLine();               
         
