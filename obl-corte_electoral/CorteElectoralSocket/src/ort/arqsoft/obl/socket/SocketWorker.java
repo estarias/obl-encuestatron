@@ -11,8 +11,11 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import ort.arqsoft.obl.utils.LeerXml;
+import java.util.ArrayList;
+import ort.arqsoft.obl.dominio.Lista;
+import ort.arqsoft.obl.utils.XmlRead;
 import ort.arqsoft.obl.utils.PrintLog;
+import ort.arqsoft.obl.utils.XmlCreate;
 
 /**
  *
@@ -25,7 +28,7 @@ public class SocketWorker extends Thread {
     //private BufferedWriter out = null;
     private PrintLog pl = null;
     private SocketServer server = null;
-    private LeerXml lx;
+    private XmlRead lx;
 
     public SocketWorker(SocketServer server, Socket client) {
         this.server = server;
@@ -54,8 +57,9 @@ public class SocketWorker extends Thread {
                 if (tipo_xml != null) {
                     if (tipo_xml.equals("pedir_listas")) {
                         //respondiendo al pedido de listas...
-                        lx = new LeerXml(xml);
-                        this.enviaDatos(lx.respuestaXML);
+//                        lx = new XmlRead(xml);
+//                        this.enviaDatos(lx.respuestaXML);
+                        this.enviaDatos(getListas(xml));
                     } else if (tipo_xml.equals("poner_voto")) {
                         //respondiendo a la votacion...
                         this.enviaDatos("votacion realizada correctamente!!");
@@ -94,5 +98,27 @@ public class SocketWorker extends Thread {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    @SuppressWarnings("static-access")
+    private String getListas(String xmlPedido){
+        ArrayList<Lista> listas = new ArrayList<Lista>();
+        Lista lista = new Lista();
+        XmlCreate xmlCreate = new XmlCreate();
+
+        String xmlRespuesta = "";
+
+        lx = new XmlRead(xmlPedido); //(DEBO RETONAR EL OBJETO LISTA!!!)
+        //return lx.respuestaXML;
+        lista.setId(Long.parseLong("1"));
+        lista.setPartidoPolitico("P1");
+        lista.setLista("lista 99999");
+        lista.setLema("por menos planchas en el mundo!!");
+        
+        listas.add(lista);
+
+        xmlRespuesta = xmlCreate.createListXML(listas);
+
+        return xmlRespuesta;
     }
 }
