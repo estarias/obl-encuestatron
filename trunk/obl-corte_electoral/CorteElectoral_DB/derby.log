@@ -1,1 +1,11 @@
-Servidor de red Apache Derby - 10.4.2.1 - (706043) se ha iniciado y está listo para aceptar conexiones en el puerto 1527 a las 2009-11-18 04:56:01.671 GMT 
+Servidor de red Apache Derby - 10.4.2.1 - (706043) se ha iniciado y está listo para aceptar conexiones en el puerto 1527 a las 2009-11-18 16:06:40.531 GMT 
+----------------------------------------------------------------
+2009-11-18 16:06:41.718 GMT:
+ Arrancando Derby versión The Apache Software Foundation - Apache Derby - 10.4.2.1 - (706043): instancia a816c00e-0125-080b-aa41-ffff9f697107
+en el directorio de base de datos D:\Documents and Settings\Felipe\Mis documentos\Felipe\ORT\Arquitecturas Distribuidas\Obligatorio\Proyectos\CorteElectoral_DB\Corte  
+
+Cargador de clases de base de datos iniciado - derby.database.classpath=''
+
+2009-11-18 16:08:35.953 GMT:
+Concluyendo instancia a816c00e-0125-080b-aa41-ffff9f697107
+----------------------------------------------------------------

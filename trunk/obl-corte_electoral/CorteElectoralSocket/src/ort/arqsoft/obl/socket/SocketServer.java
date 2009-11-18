@@ -6,12 +6,13 @@ package ort.arqsoft.obl.socket;
 
 
 import java.io.IOException;
-import java.io.PrintWriter;
+//import java.io.PrintWriter;
 import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.ArrayList;
-import java.util.List;
-import ort.arqsoft.obl.utils.PrintLog;
+//import java.net.Socket;
+//import java.util.ArrayList;
+//import java.util.List;
+import ort.arqsoft.obl.utils.PrintAndWriterLog;
+//import ort.arqsoft.obl.utils.PrintLog;
 
 
 /**
@@ -20,27 +21,29 @@ import ort.arqsoft.obl.utils.PrintLog;
  */
 public class SocketServer {
     private ServerSocket server = null;
-    private PrintLog pl = null;
+//    private PrintLog pl = null;
     //private List<SocketWorker> workers = new ArrayList<SocketWorker>();
 
 
     public SocketServer(int puerto) {
         try {
             this.server = new ServerSocket(puerto);
-            this.pl = PrintLog.getInstance();
-            this.pl.setPrefix("[server]");
+//            this.pl = PrintLog.getInstance();
+//            this.pl.setPrefix("[server]");
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
     }
 
     public void escucharPeticiones() {
-        this.pl.printMsg("Escuchando peticiones (port: " + server.getLocalPort() + ")");
+        Print("Escuchando peticiones (port: " + server.getLocalPort() + ")");
+        //this.pl.printMsg("Escuchando peticiones (port: " + server.getLocalPort() + ")");
         while (true) {
             SocketWorker worker;
             try {
                 worker = new SocketWorker(this, server.accept());
-                this.pl.printMsg("Cliente conectado OK!");
+                Print("Cliente conectado OK!");
+                //this.pl.printMsg("Cliente conectado OK!");
                 //this.workers.add(worker);
                 worker.start();
             } catch (IOException ex) {                
@@ -75,5 +78,11 @@ public class SocketServer {
         } catch (IOException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+
+        private void Print(String msj) {
+        PrintAndWriterLog.setOut(System.out);
+        PrintAndWriterLog.write(msj);
+        PrintAndWriterLog.flush();
     }
 }

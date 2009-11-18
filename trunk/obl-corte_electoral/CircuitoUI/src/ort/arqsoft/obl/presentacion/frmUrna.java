@@ -126,7 +126,7 @@ public class frmUrna extends javax.swing.JFrame {
 
     private void esperaParaIniciar() {
         try {
-            Thread.sleep(2000);
+            Thread.sleep(3000);
         } catch (InterruptedException ex) {
             Logger.getLogger(frmUrna.class.getName()).log(Level.SEVERE, null, ex);
         }

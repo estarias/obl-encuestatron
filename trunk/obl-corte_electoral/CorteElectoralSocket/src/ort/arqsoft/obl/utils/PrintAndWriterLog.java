@@ -10,7 +10,7 @@ package ort.arqsoft.obl.utils;
 import java.io.*;
 import java.util.Date;
 
-public class WriterLog {
+public class PrintAndWriterLog {
 
     private static PrintWriter myOutWriter = null;
     //variable que define si se debe escribir o no
