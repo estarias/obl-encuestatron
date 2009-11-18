@@ -8,14 +8,16 @@ import java.io.BufferedReader;
 //import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintStream;
+//import java.io.PrintStream;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.ArrayList;
-import ort.arqsoft.obl.dominio.Lista;
-import ort.arqsoft.obl.utils.XmlRead;
-import ort.arqsoft.obl.utils.PrintLog;
-import ort.arqsoft.obl.utils.XmlCreate;
+//import java.util.ArrayList;
+//import ort.arqsoft.obl.dominio.Lista;
+//import ort.arqsoft.obl.utils.XmlRead;
+import ort.arqsoft.obl.utils.PrintAndWriterLog;
+//import ort.arqsoft.obl.utils.PrintLog;
+import ort.arqsoft.obl.utils.Xml;
+//import ort.arqsoft.obl.utils.XmlCreate;
 
 /**
  *
@@ -26,16 +28,17 @@ public class SocketWorker extends Thread {
     private Socket client = null;
     private BufferedReader in = null;
     //private BufferedWriter out = null;
-    private PrintLog pl = null;
+    //private PrintLog pl = null;
     private SocketServer server = null;
-    private XmlRead lx;
+    //private XmlRead lx;
 
     public SocketWorker(SocketServer server, Socket client) {
         this.server = server;
         this.client = client;
-        this.pl = PrintLog.getInstance();
-        this.pl.setPrefix("[server]");
-        this.pl.printMsg("Port para el dialogo: " + this.client.getPort());
+        Print("Port para el dialogo: " + this.client.getPort());
+    //this.pl = PrintLog.getInstance();
+    //this.pl.setPrefix("[server]");
+    //this.pl.printMsg("Port para el dialogo: " + this.client.getPort());
     }
 
     public Socket getSocketClient() {
@@ -49,17 +52,18 @@ public class SocketWorker extends Thread {
         String tipo_xml;
         while (true) {
             xml = recibeDatos();
-            if (xml.equals("endSocket"))
+            if (xml.equals("endSocket")) {
                 break;
+            }
             if (xml != null) {
-                tipo_xml = lx.obtenerTipo(xml);
+                tipo_xml = Xml.obtenerTipo(xml);
 
                 if (tipo_xml != null) {
                     if (tipo_xml.equals("pedir_listas")) {
                         //respondiendo al pedido de listas...
 //                        lx = new XmlRead(xml);
 //                        this.enviaDatos(lx.respuestaXML);
-                        this.enviaDatos(getListas(xml));
+                        this.enviaDatos(Xml.getListas(xml));
                     } else if (tipo_xml.equals("poner_voto")) {
                         //respondiendo a la votacion...
                         this.enviaDatos("votacion realizada correctamente!!");
@@ -74,10 +78,10 @@ public class SocketWorker extends Thread {
         try {
             this.in = new BufferedReader(new InputStreamReader(this.client.getInputStream()));
             //if (in.ready())
-            datos = this.in.readLine();            
-            //this.pl.printMsg("datos recibidos: " + datos);
+            datos = this.in.readLine();
+        //this.pl.printMsg("datos recibidos: " + datos);
         } catch (IOException ex) {
-            ex.printStackTrace();            
+            ex.printStackTrace();
             server.cerrar();
             datos = "endSocket";
         }
@@ -100,25 +104,9 @@ public class SocketWorker extends Thread {
         }
     }
 
-    @SuppressWarnings("static-access")
-    private String getListas(String xmlPedido){
-        ArrayList<Lista> listas = new ArrayList<Lista>();
-        Lista lista = new Lista();
-        XmlCreate xmlCreate = new XmlCreate();
-
-        String xmlRespuesta = "";
-
-        lx = new XmlRead(xmlPedido); //(DEBO RETONAR EL OBJETO LISTA!!!)
-        //return lx.respuestaXML;
-        lista.setId(Long.parseLong("1"));
-        lista.setPartidoPolitico("P1");
-        lista.setLista("lista 99999");
-        lista.setLema("por menos planchas en el mundo!!");
-        
-        listas.add(lista);
-
-        xmlRespuesta = xmlCreate.createListXML(listas);
-
-        return xmlRespuesta;
+    private void Print(String msj) {
+        PrintAndWriterLog.setOut(System.out);
+        PrintAndWriterLog.write(msj);
+        PrintAndWriterLog.flush();
     }
 }
