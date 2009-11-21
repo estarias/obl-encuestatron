@@ -4,4 +4,3 @@ passw: obl
 
 ruta: dentro del proy /DB
 
-haciendo como en el ejemplo que tenemos. el abm de cliente al menos en memoria... despues veremos el tema de la base de datos... - 21/11

@@ -1,17 +1,16 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package ort.discom.obl.negocio;
-
+import java.util.List;
+import ort.discom.obl.dominio.Cliente;
 import javax.ejb.Local;
 
-/**
- *
- * @author Felipe
- */
+
 @Local
 public interface ClienteLocal {
-    
+    Cliente guardarCliente (Cliente cli);
+
+    Cliente getCliente (Long id);
+
+    boolean eliminarCliente(Long id);
+
+    List<Cliente>buscarClientes();
 }
