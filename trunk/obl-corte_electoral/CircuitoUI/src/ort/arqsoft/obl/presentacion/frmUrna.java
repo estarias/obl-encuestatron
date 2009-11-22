@@ -16,10 +16,10 @@ import java.awt.event.ActionListener;
 //import java.io.IOException;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
@@ -27,11 +27,13 @@ import java.util.logging.Logger;
 //import ort.arqsoft.obl.socket.SocketClient;
 import javax.swing.DefaultListModel;
 import javax.swing.Timer;
-import ort.arqsoft.obl.communication.clsSocketCommunication;
-import ort.arqsoft.obl.dominio.clsLista;
+import ort.arqsoft.obl.communication.SocketCommunication;
+import ort.arqsoft.obl.dominio.Lista;
+import ort.arqsoft.obl.dominio.Voto;
 import ort.arqsoft.obl.utils.Constants;
 import ort.arqsoft.obl.utils.XmlRead;
 import ort.arqsoft.obl.utils.PrintAndWriterLog;
+import ort.arqsoft.obl.utils.Xml;
 
 /**
  *
@@ -52,20 +54,28 @@ public class frmUrna extends javax.swing.JFrame {
 //    public final static String PATH_LISTASXML = ".\\Listas.xml";
     private boolean isConnected = false;
     private int seconds;
-    private XmlRead lx;
-    ArrayList<clsLista> Listas = null;
-    private clsLista listaVotada;
+    private XmlRead xr;
+    ArrayList<Lista> Listas = null;
+    //private Lista listaVotada;
+    private Voto voto;
 
     //private Timer timer;
     /** Creates new form frmUrna */
     public frmUrna() {
         initComponents();
-        listaVotada = new clsLista();
+        voto = new Voto();        
+        voto.setNroCircuito(Constants.NROCIRCUITO);
+        
+        this.jLabel1.setText("Urna digital - Circuito número:   " + Constants.NROCIRCUITO);
 
         formEnabled(Constants.INICIAL);
 
         if (!isConnected) {
-            isConnected = clsSocketCommunication.connectSocket();
+            isConnected = SocketCommunication.connectSocket();
+
+            //ENVIO LA SOLICITUD DE LAS LISTAS
+            if (isConnected)
+                SocketCommunication.sendData(Xml.getSolicitarListas());
         }
         esperaParaIniciar();
 
@@ -110,7 +120,7 @@ public class frmUrna extends javax.swing.JFrame {
                 this.pnlListas.setVisible(false);
                 this.btnVotar.setVisible(false);
                 esperaParaIniciar();
-                seconds = 5;
+                seconds = 3;
                 timer.start();
                 break;
         }
@@ -126,7 +136,7 @@ public class frmUrna extends javax.swing.JFrame {
 
     private void esperaParaIniciar() {
         try {
-            Thread.sleep(3000);
+            Thread.sleep(4000);
         } catch (InterruptedException ex) {
             Logger.getLogger(frmUrna.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -134,19 +144,19 @@ public class frmUrna extends javax.swing.JFrame {
 
     @SuppressWarnings("static-access")
     private void obtenerDatos() {
-        Listas = new ArrayList<clsLista>();
+        Listas = new ArrayList<Lista>();
         String xml = null;
         String tipo_xml = null;
 
         if (isConnected) {
             //SI ESTOY CONECTADO AL SERVIDOR DE LA CORTE ELECTORAL...
             eliminarFiles(Constants.PATH_LISTASXML);
-            xml = clsSocketCommunication.readData();
+            xml = SocketCommunication.readData();
             if (xml != null) {
-                tipo_xml = lx.obtenerTipo(xml);
+                tipo_xml = xr.obtenerTipo(xml);
                 if (tipo_xml.equals("envio_listas")) {
-                    lx = new XmlRead();
-                    Listas = lx.obtenerListas(xml);
+                    xr = new XmlRead();
+                    Listas = xr.obtenerListas(xml);
                 //cargarLista();
                 } else if (tipo_xml.equals("poner_voto")) {
                     System.out.println("Voto realizado correctamente");
@@ -162,10 +172,10 @@ public class frmUrna extends javax.swing.JFrame {
                     BufferedReader bfr = new BufferedReader(file);
                     xml = bfr.readLine();
                     if (xml != null) {
-                        tipo_xml = lx.obtenerTipo(xml);
+                        tipo_xml = xr.obtenerTipo(xml);
                         if (tipo_xml.equals("envio_listas")) {
-                            lx = new XmlRead();
-                            Listas = lx.obtenerListas(xml);
+                            xr = new XmlRead();
+                            Listas = xr.obtenerListas(xml);
                         //cargarLista();
                         } else if (tipo_xml.equals("poner_voto")) {
                             System.out.println("Voto realizado correctamente");
@@ -191,8 +201,9 @@ public class frmUrna extends javax.swing.JFrame {
         modelo.clear();
         if (Listas != null) {
             for (int i = 0; i < Listas.size(); i++) {
-                if (Listas.get(i).getPartidoPolitico().equals(listaVotada.getPartidoPolitico())) {
-                    modelo.addElement(Listas.get(i).getPartidoPolitico() + " " + Listas.get(i).getLista() + " - " + Listas.get(i).getLema());
+                if (Listas.get(i).getPartidoPolitico().equals(voto.getPartidoPolitico())) {
+                    modelo.addElement((Lista)Listas.get(i));
+                    //modelo.add((int) Listas.get(i).getLista(), Listas.get(i).getPartidoPolitico() + " " + Listas.get(i).getLista() + " - " + Listas.get(i).getLema());
                 }
             }
         }
@@ -235,12 +246,12 @@ public class frmUrna extends javax.swing.JFrame {
         pnlTitulo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         pnlTitulo.setName(""); // NOI18N
 
-        jLabel1.setText("Urna digital");
+        jLabel1.setText("Urna digital - Circuito número: ");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14));
         jLabel2.setText("Siguiente votación en");
 
-        lblTiempo.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        lblTiempo.setFont(new java.awt.Font("Tahoma", 1, 24));
         lblTiempo.setText("0");
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14));
@@ -257,8 +268,8 @@ public class frmUrna extends javax.swing.JFrame {
                 .addComponent(lblTiempo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
-                .addGap(636, 636, 636)
-                .addComponent(jLabel1)
+                .addGap(484, 484, 484)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 221, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         pnlTituloLayout.setVerticalGroup(
@@ -275,7 +286,7 @@ public class frmUrna extends javax.swing.JFrame {
 
         pnlPartidosPoliticos.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnP1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnP1.setFont(new java.awt.Font("Tahoma", 1, 12));
         btnP1.setText("P1");
         btnP1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -409,7 +420,7 @@ public class frmUrna extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(pnlTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 973, Short.MAX_VALUE)
+                .addComponent(pnlTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -433,34 +444,44 @@ public class frmUrna extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         if (this.lstListas.getSelectedIndex() >= 0) {
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy");
 
             long time = System.currentTimeMillis();
             Date fecha = new Date(time);
 
-            //modelo = (DefaultListModel) lstListas.getModel();
+            //String reportDate = df.format(fecha);
 
+            voto.setFecha(df.format(fecha));
+            
+            //modelo = (DefaultListModel) lstListas.getModel();
             //listaVotada.setLista((String) modelo.get(1));
             //this.lstListas.getSelectedIndex();
-            listaVotada.setLista((String) modelo.getElementAt(this.lstListas.getSelectedIndex()));
+            
+            //voto.setFecha(fecha);
+            Lista lista;
+            lista = (Lista) modelo.getElementAt(this.lstListas.getSelectedIndex());
+            //voto.setLista((String) modelo.getElementAt(this.lstListas.getSelectedIndex()));
+            voto.setLista(lista.getLista());
 
             PrintAndWriterLog.setOut(".\\");
             PrintAndWriterLog.write("*******************************************************************");
-            PrintAndWriterLog.write("VOTACIÓN REALIZADA CON FECHA Y HORA: " + fecha.toString());
-            PrintAndWriterLog.write("Partido: " + listaVotada.getPartidoPolitico());
-            PrintAndWriterLog.write("Lista: " + listaVotada.getLista());
+            PrintAndWriterLog.write("VOTACIÓN REALIZADA CON FECHA Y HORA: " + voto.getFecha()); //fecha.toString());
+            PrintAndWriterLog.write("Partido: " + voto.getPartidoPolitico());
+            PrintAndWriterLog.write("Lista: " + voto.getLista());
             PrintAndWriterLog.write("*******************************************************************");
             PrintAndWriterLog.flush();
 
             PrintAndWriterLog.setOut(System.out);
             PrintAndWriterLog.write("*******************************************************************");
-            PrintAndWriterLog.write("VOTACIÓN REALIZADA CON FECHA Y HORA: " + fecha.toString());
-            PrintAndWriterLog.write("Partido: " + listaVotada.getPartidoPolitico());
-            PrintAndWriterLog.write("Lista: " + listaVotada.getLista());
+            PrintAndWriterLog.write("VOTACIÓN REALIZADA CON FECHA Y HORA: " + voto.getFecha());
+            PrintAndWriterLog.write("Partido: " + voto.getPartidoPolitico());
+            PrintAndWriterLog.write("Lista: " + voto.getLista());
             PrintAndWriterLog.write("*******************************************************************");
             PrintAndWriterLog.flush();
 
             if (isConnected) {
-                clsSocketCommunication.sendData("<circuito><circuito-tipo_msj><tipo_msj>poner_voto</tipo_msj></circuito-tipo_msj><circuito_data><nro_circuito>600</nro_circuito><fecha>17/11/2009</fecha><hora>22:48</hora><partido_politico>1</partido_politico><nro_lista>100</nro_lista></circuito_data></circuito>");
+                //SocketCommunication.sendData("<circuito><circuito-tipo_msj><tipo_msj>poner_voto</tipo_msj></circuito-tipo_msj><circuito_data><nro_circuito>600</nro_circuito><fecha>17/11/2009</fecha><hora>22:48</hora><partido_politico>1</partido_politico><nro_lista>100</nro_lista></circuito_data></circuito>");
+                SocketCommunication.sendData(Xml.setVoto(voto));
             }
 
             formEnabled(Constants.INICIAL);
@@ -469,35 +490,35 @@ public class frmUrna extends javax.swing.JFrame {
 
     private void btnP1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP1ActionPerformed
         // TODO add your handling code here:
-        listaVotada.setPartidoPolitico(Constants.PARTDO1);
+        voto.setPartidoPolitico(Constants.PARTIDO1);
         cargarLista();
         this.formEnabled(Constants.SEGUNDO);
     }//GEN-LAST:event_btnP1ActionPerformed
 
     private void btnP2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP2ActionPerformed
         // TODO add your handling code here:
-        listaVotada.setPartidoPolitico(Constants.PARTDO2);
+        voto.setPartidoPolitico(Constants.PARTIDO2);
         cargarLista();
         this.formEnabled(Constants.SEGUNDO);
     }//GEN-LAST:event_btnP2ActionPerformed
 
     private void btnP3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP3ActionPerformed
         // TODO add your handling code here:
-        listaVotada.setPartidoPolitico(Constants.PARTDO3);
+        voto.setPartidoPolitico(Constants.PARTIDO3);
         cargarLista();
         this.formEnabled(Constants.SEGUNDO);
     }//GEN-LAST:event_btnP3ActionPerformed
 
     private void btnP4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP4ActionPerformed
         // TODO add your handling code here:
-        listaVotada.setPartidoPolitico(Constants.PARTDO4);
+        voto.setPartidoPolitico(Constants.PARTIDO4);
         cargarLista();
         this.formEnabled(Constants.SEGUNDO);
     }//GEN-LAST:event_btnP4ActionPerformed
 
     private void btnP5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnP5ActionPerformed
         // TODO add your handling code here:
-        listaVotada.setPartidoPolitico(Constants.PARTDO5);
+        voto.setPartidoPolitico(Constants.PARTIDO5);
         cargarLista();
         this.formEnabled(Constants.SEGUNDO);
     }//GEN-LAST:event_btnP5ActionPerformed

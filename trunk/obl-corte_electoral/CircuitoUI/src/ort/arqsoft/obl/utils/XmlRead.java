@@ -8,11 +8,11 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.*;
 import org.xml.sax.InputSource;
-import ort.arqsoft.obl.dominio.clsLista;
+import ort.arqsoft.obl.dominio.Lista;
 
 public class XmlRead {
 
-   public static String respuestaXML = null;
+   // static String respuestaXML = null;
 
    public static String obtenerTipo(String xml){
         String tipo_xml = "";
@@ -45,8 +45,8 @@ public class XmlRead {
         return tipo_xml;
     }
 
-    public static ArrayList<clsLista> obtenerListas(String xml) {
-        ArrayList<clsLista>  Listas = null;
+    public static ArrayList<Lista> obtenerListas(String xml) {
+        ArrayList<Lista>  Listas = null;
         
         try {
 
@@ -89,9 +89,9 @@ public class XmlRead {
         return Listas;
     }
 
-    private static ArrayList<clsLista> getDataFromXMLListasPartidos(Document document) {        
-        ArrayList<clsLista> Listas = new ArrayList<clsLista>();
-        clsLista Lista = null;
+    private static ArrayList<Lista> getDataFromXMLListasPartidos(Document document) {
+        ArrayList<Lista> Listas = new ArrayList<Lista>();
+        Lista Lista = null;
         try {
 
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -106,7 +106,7 @@ public class XmlRead {
 
                 if (firstNode.getNodeType() == Node.ELEMENT_NODE) {
 
-                    Lista = new clsLista();
+                    Lista = new Lista();
 
                     Element element = (Element) firstNode;
                     NodeList partidoPoliticoElemntList = element.getElementsByTagName("partido_politico");
@@ -115,11 +115,15 @@ public class XmlRead {
                     
                     NodeList nroListaElementList = element.getElementsByTagName("nro_lista");
                     Element nroListaElement = (Element) nroListaElementList.item(0);
-                    String nroLista = nroListaElement.getChildNodes().item(0).getNodeValue();
+                    long nroLista = Long.parseLong(nroListaElement.getChildNodes().item(0).getNodeValue());
+
+                    NodeList lemaElementList = element.getElementsByTagName("lema");
+                    Element lemaElement = (Element) lemaElementList.item(0);
+                    String lema = lemaElement.getChildNodes().item(0).getNodeValue();
 
                     Lista.setPartidoPolitico(partidoPolitico);
                     Lista.setLista(nroLista);
-                    Lista.setLema("lalalaaaa");
+                    Lista.setLema(lema);
 
                         //System.out.println("nro_lista : " + ((Node) nroCircuito.item(0)).getNodeValue());
 
@@ -149,7 +153,7 @@ public class XmlRead {
 
                     Lista = null;
                 }                               
-            respuestaXML = "respuesta desde el socket getDataFromXMLVotar";
+            //respuestaXML = "respuesta desde el socket getDataFromXMLVotar";
            
         } catch (Exception e) {
             e.printStackTrace();
