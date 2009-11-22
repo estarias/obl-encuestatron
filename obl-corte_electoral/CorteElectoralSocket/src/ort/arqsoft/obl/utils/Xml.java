@@ -14,6 +14,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import ort.arqsoft.obl.dominio.Circuito;
 import ort.arqsoft.obl.dominio.Lista;
 
 /**
@@ -33,7 +34,7 @@ public class Xml {
 
             Document document = db.parse(is);
 
-            NodeList node = document.getElementsByTagName("circuito");
+            NodeList node = document.getElementsByTagName("circuito");            
             Node firstNode = node.item(0);
             Element element = (Element) firstNode;
             NodeList tipoMsjElemntList = element.getElementsByTagName("tipo_msj");
@@ -44,6 +45,8 @@ public class Xml {
                 tipo = "pedir_listas";
             } else if (((Node) tipoMsj.item(0)).getNodeValue().equals("poner_voto")) {
                 tipo = "poner_voto";
+            } else if (((Node) tipoMsj.item(0)).getNodeValue().equals("pedir_circuito")) {
+                tipo = "pedir_circuito";
             }
 
         } catch (Exception e) {
@@ -63,12 +66,23 @@ public class Xml {
         return xmlRespuesta;
     }
 
-    public static void setVoto(String xmlVoto){
-        //ArrayList<Lista> listas = new ArrayList<Lista>();
+    public static String getCircuito(String xmlPedido){
+        Circuito circuito = new Circuito();
         XmlCreate xmlCreate = new XmlCreate();
         String xmlRespuesta = "";
 
-        XmlRead.procesarXmlVoto(xmlVoto);
+        circuito = XmlRead.procesarXmlCircuito(xmlPedido);
+        xmlRespuesta = xmlCreate.createCircuitoXML(circuito);
+
+        return xmlRespuesta;
+    }
+
+    public static void setVoto(String xmlVoto){
+        //ArrayList<Lista> listas = new ArrayList<Lista>();
+        //XmlCreate xmlCreate = new XmlCreate();
+        //String xmlRespuesta = "";
+        if(!xmlVoto.equals(""))
+            XmlRead.procesarXmlVoto(xmlVoto);
         //xmlRespuesta = xmlCreate.createListXML(listas);
 
         //return xmlRespuesta;

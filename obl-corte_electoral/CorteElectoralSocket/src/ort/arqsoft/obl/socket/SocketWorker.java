@@ -55,9 +55,8 @@ public class SocketWorker extends Thread {
             if (xml.equals("endSocket")) {
                 break;
             }
-            if (xml != null) {
+            if (xml != null) {                
                 tipo_xml = Xml.obtenerTipo(xml);
-
                 if (tipo_xml != null) {
                     if (tipo_xml.equals("pedir_listas")) {
                         //respondiendo al pedido de listas...
@@ -65,8 +64,13 @@ public class SocketWorker extends Thread {
 //                        this.enviaDatos(lx.respuestaXML);
                         this.enviaDatos(Xml.getListas(xml));
                     } else if (tipo_xml.equals("poner_voto")) {
-                        //respondiendo a la votacion...
-                        this.enviaDatos("votacion realizada correctamente!!");
+                        //no respondiendo a la votacion...
+                        Xml.setVoto(xml);
+                        this.enviaDatos("OK");
+                        //this.enviaDatos("votacion realizada correctamente!!");
+                    } else if (tipo_xml.equals("pedir_circuito")) {
+                        Print(xml);
+                        this.enviaDatos(Xml.getCircuito(xml));                        
                     }
                 }
             }
