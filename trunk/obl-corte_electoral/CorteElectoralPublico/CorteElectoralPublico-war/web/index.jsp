@@ -11,9 +11,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>CORTE ELECTORAL - Consultas de los circuitos electorales </title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <h2>Consultas de los circuitos electorales</h2>
+        <a href="<%=application.getContextPath()%>/Controlador?comando=inicio">Consultar circuitos</a>
     </body>
 </html>
