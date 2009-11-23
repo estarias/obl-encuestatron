@@ -15,6 +15,7 @@ public class Lista {
     private String partidoPolitico;
     private String lista;
     private String lema;
+    private long votos;
 
     /**
      * @return the partidoPolitico
@@ -70,6 +71,20 @@ public class Lista {
      */
     public void setId(long id) {
         this.id = id;
+    }
+
+    /**
+     * @return the votos
+     */
+    public long getVotos() {
+        return votos;
+    }
+
+    /**
+     * @param votos the votos to set
+     */
+    public void setVotos(long votos) {
+        this.votos = votos;
     }
 
 }

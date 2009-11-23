@@ -57,5 +57,65 @@ public class XmlCreate {
 
         return xml;
     }
+    
+    public String createEstadoEscrutinioXML(String estado){
+        String xml = "";
 
+        xml = "<circuito><circuito-tipo_msj><tipo_msj>envio_estadoEscrutinio</tipo_msj></circuito-tipo_msj>";
+
+        xml += "<ws_data><estado>";
+        xml += estado; //(estado escrutinio)
+        xml += "</estado></ws_data>";
+
+        xml += "</circuito>";
+
+        return xml;
+    }
+
+    public String createListaCantidadVotosXML(ArrayList<Lista> listas){
+        String xml = "";
+
+        xml = "<circuito><circuito-tipo_msj><tipo_msj>envio_listasVotos</tipo_msj></circuito-tipo_msj>";
+
+        for (int i = 0; i < listas.size(); i++) {
+            xml += "<ws_data><partido_politico>";
+            xml += listas.get(i).getPartidoPolitico(); //(partido politico)
+            xml += "</partido_politico><nro_lista>";
+            xml += listas.get(i).getLista(); //(nrolista)
+            xml += "</nro_lista><votos>";
+            xml += listas.get(i).getVotos(); //(cantidad votos)
+            xml += "</votos></ws_data>";
+        }
+        xml += "</circuito>";
+
+        return xml;
+    }
+
+    public String createCantidadVotosAnuladosXML(long cantidad){
+        String xml = "";
+
+        xml = "<circuito><circuito-tipo_msj><tipo_msj>envio_votosAnulados</tipo_msj></circuito-tipo_msj>";
+
+        xml += "<ws_data><cantidadAnulados>";
+        xml += cantidad; //(estado escrutinio)
+        xml += "</cantidadAnulados></ws_data>";
+
+        xml += "</circuito>";
+
+        return xml;
+    }
+    
+    public String createCantidadVotosEnBlancoXML(long cantidad){
+        String xml = "";
+
+        xml = "<circuito><circuito-tipo_msj><tipo_msj>envio_votosBlancos</tipo_msj></circuito-tipo_msj>";
+
+        xml += "<ws_data><cantidadEnBlanco>";
+        xml += cantidad; //(estado escrutinio)
+        xml += "</cantidadEnBlanco></ws_data>";
+
+        xml += "</circuito>";
+
+        return xml;
+    }
 }

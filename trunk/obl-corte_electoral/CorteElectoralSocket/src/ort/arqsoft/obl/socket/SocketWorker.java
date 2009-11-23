@@ -59,18 +59,27 @@ public class SocketWorker extends Thread {
                 tipo_xml = Xml.obtenerTipo(xml);
                 if (tipo_xml != null) {
                     if (tipo_xml.equals("pedir_listas")) {
-                        //respondiendo al pedido de listas...
-//                        lx = new XmlRead(xml);
-//                        this.enviaDatos(lx.respuestaXML);
+                        //respondiendo al pedido de todas las listas...
                         this.enviaDatos(Xml.getListas(xml));
-                    } else if (tipo_xml.equals("poner_voto")) {
+                    }else if (tipo_xml.equals("poner_voto")) {
                         //no respondiendo a la votacion...
                         Xml.setVoto(xml);
-                        this.enviaDatos("OK");
-                        //this.enviaDatos("votacion realizada correctamente!!");
-                    } else if (tipo_xml.equals("pedir_circuito")) {
-                        Print(xml);
+                        this.enviaDatos("OK");                        
+                    }else if (tipo_xml.equals("pedir_circuito")) {
+                        //respondiendo al pedido de circuito de la credencial ingresada...
                         this.enviaDatos(Xml.getCircuito(xml));                        
+                    }else if (tipo_xml.equals("pedir_estadoEscrutinio")) {
+                        //respondiendo al pedido de estado de escrutinio...                        
+                        this.enviaDatos(Xml.getEstadoEscrutinio(xml));
+                    }else if (tipo_xml.equals("pedir_listasVotos")) {
+                        //respondiendo al pedido de cantidad de votos por listas...                        
+                        this.enviaDatos(Xml.getListasCantidadVotos(xml));
+                    }else if (tipo_xml.equals("pedir_votosAnulados")) {
+                        //respondiendo al pedido de cantidad de votos anulados...
+                        this.enviaDatos(Xml.getCantidadVotosAnulados(xml));
+                    }else if (tipo_xml.equals("pedir_votosBlancos")) {
+                        //respondiendo al pedido de cantidad de votos en blanco...
+                        this.enviaDatos(Xml.getCantidadVotosEnBlanco(xml));
                     }
                 }
             }
