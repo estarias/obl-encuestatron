@@ -40,4 +40,41 @@ public class XmlCreate {
 
         return xml;
     }
+
+    public String createSolicitarEstadoEscrutinioXML(){
+        String xml = "";
+
+        xml = "<circuito><circuito-tipo_msj><tipo_msj>pedir_estadoEscrutinio</tipo_msj></circuito-tipo_msj>";
+        xml += "<ws_data></ws_data></circuito>";
+
+        return xml;
+    }
+
+    public String createSolicitarListasVotosXML(){
+        String xml = "";
+
+        xml = "<circuito><circuito-tipo_msj><tipo_msj>pedir_listasVotos</tipo_msj></circuito-tipo_msj>";
+        xml += "<ws_data></ws_data></circuito>";
+
+        return xml;
+    }
+
+
+    public String createSolicitarVotoAnuladosXML(){
+        String xml = "";
+
+        xml = "<circuito><circuito-tipo_msj><tipo_msj>pedir_votosAnulados</tipo_msj></circuito-tipo_msj>";
+        xml += "<ws_data></ws_data></circuito>";
+
+        return xml;
+    }
+
+    public String createSolicitarVotoBlancosXML(){
+        String xml = "";
+
+        xml = "<circuito><circuito-tipo_msj><tipo_msj>pedir_votosBlancos</tipo_msj></circuito-tipo_msj>";
+        xml += "<ws_data></ws_data></circuito>";
+
+        return xml;
+    }
 }

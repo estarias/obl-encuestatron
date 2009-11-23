@@ -28,13 +28,9 @@ public class Consultas extends HttpServlet {
 
     @Override
     public void init() {
-//        if (getServletContext().getAttribute("usuarios") == null) {
-//            Map<String, Usuario> usuarios = Collections.synchronizedMap(new HashMap<String, Usuario>());
-//            getServletContext().setAttribute("usuarios", usuarios);
-//        }
-
         connectServer();        
     }
+    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
@@ -58,9 +54,6 @@ public class Consultas extends HttpServlet {
                 out.println("</body>");
                 out.println("</html>");
             }else{
-//
-                //(request.getAttribute("serie").toString(),request.getAttribute("numero").toString());
-                //getCircuito(request.getAttribute("serie").toString(),request.getAttribute("numero").toString())
                 
                 Circuito circuito = getCircuito(request.getParameter("serie").toString(),request.getParameter("numero").toString());
 
@@ -92,16 +85,14 @@ public class Consultas extends HttpServlet {
 
     private Circuito getCircuito(String serie, String numero){
         Circuito circuito = new Circuito();
-        //String xxx = "";
-        
+                
         //ENVIO LA SOLICITUD DE LAS LISTAS
         if (isConnected) {
             SocketCommunication.sendData(Xml.getXMLSolicitarCircuito(serie,numero));
             
             esperaParaBuscarLaRespuesta();
 
-            circuito = Xml.getCircuitoFromXml(SocketCommunication.readData());
-            //xxx = SocketCommunication.readData();
+            circuito = Xml.getCircuitoFromXml(SocketCommunication.readData());        
         }        
         return circuito;
     }
@@ -113,7 +104,7 @@ public class Consultas extends HttpServlet {
 
     private void esperaParaBuscarLaRespuesta() {
         try {
-            Thread.sleep(2500);
+            Thread.sleep(3500);
         } catch (InterruptedException ex) {
             Logger.getLogger(Consultas.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -6,6 +6,7 @@
 package ort.arqsoft.obl.utils;
 
 import java.io.StringReader;
+import java.util.ArrayList;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import org.w3c.dom.Document;
@@ -14,6 +15,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 import ort.arqsoft.obl.dominio.Circuito;
+import ort.arqsoft.obl.dominio.Lista;
 
 /**
  *
@@ -65,5 +67,73 @@ public class Xml {
         
         circuito = XmlRead.obtenerCircuito(xml);
         return circuito;
+    }
+
+     public static String getXMLSolicitarEstadoEscrutinio(){
+        XmlCreate xmlCreate = new XmlCreate();
+        String xmlRespuesta = "";
+
+        xmlRespuesta = xmlCreate.createSolicitarEstadoEscrutinioXML();
+
+        return xmlRespuesta;
+    }
+
+    public static String getEstadoEscrutinioFromXml(String xml){
+        String estado = "";
+
+        estado = XmlRead.obtenerEstadoEscrutinio(xml);
+
+        return estado;
+    }
+
+    public static String getXMLSolicitarListasCantidadVotos(){
+        XmlCreate xmlCreate = new XmlCreate();
+        String xmlRespuesta = "";
+
+        xmlRespuesta = xmlCreate.createSolicitarListasVotosXML();
+
+        return xmlRespuesta;
+    }
+
+    public static ArrayList<Lista> getListasCantidadVotosFromXml(String xml){
+        ArrayList<Lista> listas = null;
+
+        listas = XmlRead.obtenerListasVotos(xml);
+
+        return listas;
+    }
+
+    public static String getXMLSolicitarVotosAnulados(){
+        XmlCreate xmlCreate = new XmlCreate();
+        String xmlRespuesta = "";
+
+        xmlRespuesta = xmlCreate.createSolicitarVotoAnuladosXML();
+
+        return xmlRespuesta;
+    }
+
+    public static long getVotosAnuladosFromXml(String xml){
+        long cantidad = 0;
+
+        cantidad = XmlRead.obtenerCantidadAnulados(xml);
+
+        return cantidad;
+    }
+
+    public static String getXMLSolicitarVotosEnBlanco(){
+        XmlCreate xmlCreate = new XmlCreate();
+        String xmlRespuesta = "";
+
+        xmlRespuesta = xmlCreate.createSolicitarVotoBlancosXML();
+
+        return xmlRespuesta;
+    }
+    
+    public static long getVotosEnBlancoFromXml(String xml){
+        long cantidad = 0;
+
+        cantidad = XmlRead.obtenerCantidadEnBlanco(xml);
+
+        return cantidad;
     }
 }
