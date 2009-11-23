@@ -69,7 +69,7 @@ private ConnectionDB conect;
 
                 ResultSet rs = null;
                 Statement stm = con.createStatement();
-                String strSQL = "SELECT COUNT(*) AS Cantidad FROM votos WHERE partido = 'A'";
+                String strSQL = "SELECT COUNT(*) AS Cantidad FROM votos WHERE partido = 'ANULADO'";
                 //Ejecuta la consulta SQL
                 rs = stm.executeQuery(strSQL);
 
@@ -98,7 +98,7 @@ private ConnectionDB conect;
 
                 ResultSet rs = null;
                 Statement stm = con.createStatement();
-                String strSQL = "SELECT COUNT(*) AS Cantidad FROM votos WHERE partido = 'B'";
+                String strSQL = "SELECT COUNT(*) AS Cantidad FROM votos WHERE partido = 'EN_BLANCO'";
                 //Ejecuta la consulta SQL
                 rs = stm.executeQuery(strSQL);
 
