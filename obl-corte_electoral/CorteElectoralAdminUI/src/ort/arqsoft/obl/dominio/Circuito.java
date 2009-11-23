@@ -131,6 +131,9 @@ public class Circuito {
     public void setActivo(int activo) {
         this.activo = activo;
     }
-    
 
+    @Override
+    public String toString () {
+        return String.valueOf(this.getNroCircuito()) + " - " + this.getLocal() + "   " + this.getDireccion() ;
+    }   
 }
