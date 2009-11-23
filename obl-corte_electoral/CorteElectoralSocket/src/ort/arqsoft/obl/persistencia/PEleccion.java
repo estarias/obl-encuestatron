@@ -2,22 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package ort.arqsoft.obl.persistencia;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import ort.arqsoft.obl.dominio.Lista;
 import ort.arqsoft.obl.utils.ConnectionDB;
 
 /**
  *
  * @author Felipe
  */
-public class PLista {
-
-    private ConnectionDB conect;
+public class PEleccion {
+private ConnectionDB conect;
 
     private Connection conectarDB() {
         //Crear un objeto de la clase de conexión
@@ -32,29 +30,24 @@ public class PLista {
         return conect.closeConecction();
     }
 
-    public ArrayList<Lista> listarListas() {
-        ArrayList<Lista> listas = new ArrayList<Lista>();
-        Lista lista = null;
+    public String estadoEscutinio() {
+        String estado = "";
         Connection con = conectarDB();
         try {
             if (con != null) {
 
                 ResultSet rs = null;
                 Statement stm = con.createStatement();
-                String strSQL = "SELECT * FROM listas";
+                String strSQL = "SELECT * FROM elecciones WHERE id = 1";
                 //Ejecuta la consulta SQL
                 rs = stm.executeQuery(strSQL);
 
                 //Trabajar con el result set…
-//                if (rs.next()) {
-                while (rs.next()) {
-                    lista = new Lista();
-                    lista.setId(rs.getLong("Id"));
-                    lista.setPartidoPolitico(rs.getString("partido"));
-                    lista.setLista(rs.getString("lista"));
-                    lista.setLema(rs.getString("lema"));
-                    listas.add(lista);                    
+                //while (rs.next()) {
+                if (rs.next()) {
+                    estado = rs.getString("escrutinio");
                 }
+                
                 //Cerrar todo
                 rs.close();
                 stm.close();
@@ -65,32 +58,24 @@ public class PLista {
         }catch (SQLException ex) {
             Logger.getLogger(PLista.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return listas;
+        return estado;
     }
 
-    public ArrayList<Lista> listarListasCantidadVotos() {
-        ArrayList<Lista> listas = new ArrayList<Lista>();
-        Lista lista = null;
+    public long cantidadVotosAnulados() {
+        long cantidad = 0;
         Connection con = conectarDB();
         try {
             if (con != null) {
 
                 ResultSet rs = null;
                 Statement stm = con.createStatement();
-                String strSQL = "SELECT COUNT(*) AS cantidadVotos, partido,lista FROM votos GROUP BY partido, lista";
+                String strSQL = "SELECT COUNT(*) AS Cantidad FROM votos WHERE partido = 'A'";
                 //Ejecuta la consulta SQL
                 rs = stm.executeQuery(strSQL);
 
                 //Trabajar con el result set…
-//                if (rs.next()) {
-                while (rs.next()) {
-                    lista = new Lista();
-                    
-                    lista.setPartidoPolitico(rs.getString("partido"));
-                    lista.setLista(rs.getString("lista"));
-                    lista.setVotos(rs.getLong("cantidadVotos"));
-
-                    listas.add(lista);
+                if (rs.next()) { 
+                    cantidad = rs.getLong("Cantidad");                    
                 }
                 //Cerrar todo
                 rs.close();
@@ -102,6 +87,35 @@ public class PLista {
         }catch (SQLException ex) {
             Logger.getLogger(PLista.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return listas;
+        return cantidad;
+    }
+
+    public long cantidadVotosEnBlanco() {
+        long cantidad = 0;
+        Connection con = conectarDB();
+        try {
+            if (con != null) {
+
+                ResultSet rs = null;
+                Statement stm = con.createStatement();
+                String strSQL = "SELECT COUNT(*) AS Cantidad FROM votos WHERE partido = 'B'";
+                //Ejecuta la consulta SQL
+                rs = stm.executeQuery(strSQL);
+
+                //Trabajar con el result set…
+                if (rs.next()) {
+                    cantidad = rs.getLong("Cantidad");
+                }
+                //Cerrar todo
+                rs.close();
+                stm.close();
+                if (!desconectarDB()) {
+                    //Error al cerrar la conexión
+                }
+            }
+        }catch (SQLException ex) {
+            Logger.getLogger(PLista.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return cantidad;
     }
 }

@@ -18,6 +18,7 @@ import ort.arqsoft.obl.dominio.Circuito;
 import ort.arqsoft.obl.dominio.Lista;
 import ort.arqsoft.obl.dominio.Voto;
 import ort.arqsoft.obl.persistencia.PCircuito;
+import ort.arqsoft.obl.persistencia.PEleccion;
 import ort.arqsoft.obl.persistencia.PLista;
 import ort.arqsoft.obl.persistencia.PVoto;
 
@@ -237,4 +238,161 @@ public class XmlRead {
         }
         return circuito;
     }
+
+    public static String procesarXmlEstadoEscrutinio(String xml) {
+        String estado = "";
+        try {
+
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            InputSource is = new InputSource();
+            is.setCharacterStream(new StringReader(xml));
+
+            Document document = db.parse(is);
+
+            document.getDocumentElement().normalize();
+
+            NodeList node = document.getElementsByTagName("circuito");
+
+            for (int i = 0; i < node.getLength(); i++) {
+                Node firstNode = node.item(i);
+
+                if (firstNode.getNodeType() == Node.ELEMENT_NODE) {
+
+//                    Element element = (Element) firstNode;
+//                    NodeList serieElemntList = element.getElementsByTagName("serie");
+//                    Element serieElement = (Element) serieElemntList.item(0);
+//                    String serie = serieElement.getFirstChild().getNodeValue();
+
+                    PEleccion pe = new PEleccion();
+                    estado = pe.estadoEscutinio();
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return estado;
+    }
+
+    public static ArrayList<Lista> procesarXmlListaCantidadVotos(String xml) {
+        ArrayList<Lista> listas = null;
+        try {
+
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            InputSource is = new InputSource();
+            is.setCharacterStream(new StringReader(xml));
+
+            Document document = db.parse(is);
+
+            document.getDocumentElement().normalize();
+
+            NodeList node = document.getElementsByTagName("circuito");
+
+            for (int i = 0; i < node.getLength(); i++) {
+                Node firstNode = node.item(i);
+
+                if (firstNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) firstNode;
+
+//                    NodeList tipoMsjElemntList = element.getElementsByTagName("tipo_msj");
+//                    Element tipoMsjElement = (Element) tipoMsjElemntList.item(0);
+//                    String tipoMsj = tipoMsjElement.getFirstChild().getNodeValue();
+//
+//                    NodeList nroCircuitoElementList = element.getElementsByTagName("nro_circuito");
+//                    Element nroCircuitoElement = (Element) nroCircuitoElementList.item(0);
+//                    String nroCircuito = nroCircuitoElement.getFirstChild().getNodeValue();
+
+                }
+            }
+
+            PLista pl = new PLista();
+            listas = pl.listarListasCantidadVotos();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listas;
+    }
+
+    public static long procesarXmlCantidadVotosAnulados(String xml) {
+        long cantidad = 0;
+        try {
+
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            InputSource is = new InputSource();
+            is.setCharacterStream(new StringReader(xml));
+
+            Document document = db.parse(is);
+
+            document.getDocumentElement().normalize();
+
+            NodeList node = document.getElementsByTagName("circuito");
+
+            for (int i = 0; i < node.getLength(); i++) {
+                Node firstNode = node.item(i);
+
+                if (firstNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) firstNode;
+
+//                    NodeList tipoMsjElemntList = element.getElementsByTagName("tipo_msj");
+//                    Element tipoMsjElement = (Element) tipoMsjElemntList.item(0);
+//                    String tipoMsj = tipoMsjElement.getFirstChild().getNodeValue();
+//
+//                    NodeList nroCircuitoElementList = element.getElementsByTagName("nro_circuito");
+//                    Element nroCircuitoElement = (Element) nroCircuitoElementList.item(0);
+//                    String nroCircuito = nroCircuitoElement.getFirstChild().getNodeValue();
+                }
+            }
+            PEleccion pe = new PEleccion();
+            cantidad = pe.cantidadVotosAnulados();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cantidad;
+    }
+
+     public static long procesarXmlCantidadVotosEnBlanco(String xml) {
+        long cantidad = 0;
+        try {
+
+            DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            DocumentBuilder db = dbf.newDocumentBuilder();
+            InputSource is = new InputSource();
+            is.setCharacterStream(new StringReader(xml));
+
+            Document document = db.parse(is);
+
+            document.getDocumentElement().normalize();
+
+            NodeList node = document.getElementsByTagName("circuito");
+
+            for (int i = 0; i < node.getLength(); i++) {
+                Node firstNode = node.item(i);
+
+                if (firstNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element element = (Element) firstNode;
+
+//                    NodeList tipoMsjElemntList = element.getElementsByTagName("tipo_msj");
+//                    Element tipoMsjElement = (Element) tipoMsjElemntList.item(0);
+//                    String tipoMsj = tipoMsjElement.getFirstChild().getNodeValue();
+//
+//                    NodeList nroCircuitoElementList = element.getElementsByTagName("nro_circuito");
+//                    Element nroCircuitoElement = (Element) nroCircuitoElementList.item(0);
+//                    String nroCircuito = nroCircuitoElement.getFirstChild().getNodeValue();
+                }
+            }
+            PEleccion pe = new PEleccion();
+            cantidad = pe.cantidadVotosEnBlanco();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return cantidad;
+    }
+
 }

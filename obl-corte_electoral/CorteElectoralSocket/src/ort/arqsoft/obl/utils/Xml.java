@@ -47,6 +47,14 @@ public class Xml {
                 tipo = "poner_voto";
             } else if (((Node) tipoMsj.item(0)).getNodeValue().equals("pedir_circuito")) {
                 tipo = "pedir_circuito";
+            }else if (((Node) tipoMsj.item(0)).getNodeValue().equals("pedir_estadoEscrutinio")) {
+                tipo = "pedir_estadoEscrutinio";
+            }else if (((Node) tipoMsj.item(0)).getNodeValue().equals("pedir_listasVotos")) {
+                tipo = "pedir_listasVotos";
+            }else if (((Node) tipoMsj.item(0)).getNodeValue().equals("pedir_votosAnulados")) {
+                tipo = "pedir_votosAnulados";
+            }else if (((Node) tipoMsj.item(0)).getNodeValue().equals("pedir_votosBlancos")) {
+                tipo = "pedir_votosBlancos";
             }
 
         } catch (Exception e) {
@@ -77,6 +85,17 @@ public class Xml {
         return xmlRespuesta;
     }
 
+    public static String getEstadoEscrutinio(String xmlPedido){
+        String estado = "";
+        XmlCreate xmlCreate = new XmlCreate();
+        String xmlRespuesta = "";
+
+        estado = XmlRead.procesarXmlEstadoEscrutinio(xmlPedido);
+        xmlRespuesta = xmlCreate.createEstadoEscrutinioXML(estado);
+
+        return xmlRespuesta;
+    }
+
     public static void setVoto(String xmlVoto){
         //ArrayList<Lista> listas = new ArrayList<Lista>();
         //XmlCreate xmlCreate = new XmlCreate();
@@ -87,4 +106,38 @@ public class Xml {
 
         //return xmlRespuesta;
     }
+
+    public static String getListasCantidadVotos(String xmlPedido){
+        ArrayList<Lista> listas = new ArrayList<Lista>();
+        XmlCreate xmlCreate = new XmlCreate();
+        String xmlRespuesta = "";
+
+        listas = XmlRead.procesarXmlListaCantidadVotos(xmlPedido);
+        xmlRespuesta = xmlCreate.createListaCantidadVotosXML(listas);
+
+        return xmlRespuesta;
+    }
+
+    public static String getCantidadVotosAnulados(String xmlPedido){
+        long cantidad = 0;
+        XmlCreate xmlCreate = new XmlCreate();
+        String xmlRespuesta = "";
+
+        cantidad = XmlRead.procesarXmlCantidadVotosAnulados(xmlPedido);
+        xmlRespuesta = xmlCreate.createCantidadVotosAnuladosXML(cantidad);
+
+        return xmlRespuesta;
+    }
+
+     public static String getCantidadVotosEnBlanco(String xmlPedido){
+        long cantidad = 0;
+        XmlCreate xmlCreate = new XmlCreate();
+        String xmlRespuesta = "";
+
+        cantidad = XmlRead.procesarXmlCantidadVotosEnBlanco(xmlPedido);
+        xmlRespuesta = xmlCreate.createCantidadVotosEnBlancoXML(cantidad);
+
+        return xmlRespuesta;
+    }
+
 }
