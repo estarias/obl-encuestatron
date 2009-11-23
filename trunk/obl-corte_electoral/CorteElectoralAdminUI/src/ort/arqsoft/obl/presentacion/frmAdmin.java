@@ -58,7 +58,7 @@ public class frmAdmin extends javax.swing.JFrame {
 
         if (Listas != null) {
             for (int i = 0; i < Listas.size(); i++) {
-                modeloLista.addElement(Listas.get(i));
+                modeloLista.addElement(Listas.get(i).toString());
                 //modeloLista.addElement(Listas.get(i).getId() + " " + Listas.get(i).getPartidoPolitico() + " " + Listas.get(i).getLista() + " - " + Listas.get(i).getLema());
             }
         }
@@ -76,7 +76,7 @@ public class frmAdmin extends javax.swing.JFrame {
 
         if (Circuitos != null) {
             for (int i = 0; i < Circuitos.size(); i++) {
-                modeloCircuito.addElement(Circuitos.get(i));
+                modeloCircuito.addElement(Circuitos.get(i).toString());
             }
         }
     }

@@ -86,4 +86,9 @@ public class Lista {
     public void setActivo(int activo) {
         this.activo = activo;
     }
+
+    @Override
+    public String toString () {
+        return this.getPartidoPolitico() + " - " + String.valueOf(this.getLista()) + "   " + this.getLema() ;
+    }
 }
