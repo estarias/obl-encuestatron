@@ -23,6 +23,8 @@ public class Constants {
     public final static String PARTIDO3 = "P3";
     public final static String PARTIDO4 = "P4";
     public final static String PARTIDO5 = "P5";
+    public final static String BLANCO = "EN_BLANCO";
+    public final static String ANULADO = "ANULADO";
 
     public final static String PATH_LISTASXML = ".\\Listas.xml";
 

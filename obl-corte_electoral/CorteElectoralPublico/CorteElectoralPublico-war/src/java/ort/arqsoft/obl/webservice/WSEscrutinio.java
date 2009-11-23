@@ -45,9 +45,12 @@ public class WSEscrutinio {
     * Web service operation
     */
     @WebMethod(operationName = "listasCantidadVotos")
-    public ArrayList<Lista> listasCantidadVotos() {
+    //public ArrayList<Lista> listasCantidadVotos() {
+    public String listasCantidadVotos() {
         //TODO write your implementation code here:
+        String listasVotos = "";
         ArrayList<Lista> listas = new ArrayList<Lista>();
+        Lista lista = null;
 
         connectServer();
         if (isConnected) {
@@ -56,8 +59,13 @@ public class WSEscrutinio {
             esperaParaBuscarLaRespuesta();
 
             listas = Xml.getListasCantidadVotosFromXml(SocketCommunication.readData());
+
+            for (int i = 0; i < listas.size(); i++) {
+                lista = listas.get(i);
+                listasVotos += "  * PARTIDO: " + lista.getPartidoPolitico() + " - LISTA: " + lista.getLista() + " - VOTOS: " + lista.getVotos();
+            }
         }
-        return listas;
+        return listasVotos;
     }
 
         /**
