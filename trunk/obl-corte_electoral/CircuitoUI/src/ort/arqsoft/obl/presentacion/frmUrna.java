@@ -31,9 +31,9 @@ import ort.arqsoft.obl.communication.SocketCommunication;
 import ort.arqsoft.obl.dominio.Lista;
 import ort.arqsoft.obl.dominio.Voto;
 import ort.arqsoft.obl.utils.Constants;
-import ort.arqsoft.obl.utils.XmlRead;
+import ort.arqsoft.obl.xml.XmlRead;
 import ort.arqsoft.obl.utils.PrintAndWriterLog;
-import ort.arqsoft.obl.utils.Xml;
+import ort.arqsoft.obl.xml.Xml;
 
 /**
  *
@@ -44,7 +44,7 @@ public class frmUrna extends javax.swing.JFrame {
     private DefaultListModel modelo;
     private boolean isConnected = false;
     private int seconds;
-    private XmlRead xr;
+//    private XmlRead xr;
     ArrayList<Lista> Listas = null;
     //private Lista listaVotada;
     private Voto voto;
@@ -65,7 +65,7 @@ public class frmUrna extends javax.swing.JFrame {
 
             //ENVIO LA SOLICITUD DE LAS LISTAS
             if (isConnected)
-                SocketCommunication.sendData(Xml.getSolicitarListas());
+                SocketCommunication.sendData(Xml.getXmlSolicitarListas());
         }
         esperaParaIniciar();
 
@@ -153,10 +153,12 @@ public class frmUrna extends javax.swing.JFrame {
             eliminarFiles(Constants.PATH_LISTASXML);
             xml = SocketCommunication.readData();
             if (xml != null) {
-                tipo_xml = xr.obtenerTipo(xml);
+                //tipo_xml = xr.obtenerTipo(xml);
+                tipo_xml = Xml.obtenerTipo(xml);
                 if (tipo_xml.equals("envio_listas")) {
-                    xr = new XmlRead();
-                    Listas = xr.obtenerListas(xml);
+                    //xr = new XmlRead();
+                    //Listas = xr.obtenerListas(xml);
+                    Listas = Xml.getObjListas(xml);
                 //cargarLista();
                 } else if (tipo_xml.equals("poner_voto")) {
                     System.out.println("Voto realizado correctamente");
@@ -172,10 +174,12 @@ public class frmUrna extends javax.swing.JFrame {
                     BufferedReader bfr = new BufferedReader(file);
                     xml = bfr.readLine();
                     if (xml != null) {
-                        tipo_xml = xr.obtenerTipo(xml);
+                        //tipo_xml = xr.obtenerTipo(xml);
+                        tipo_xml = Xml.obtenerTipo(xml);
                         if (tipo_xml.equals("envio_listas")) {
-                            xr = new XmlRead();
-                            Listas = xr.obtenerListas(xml);
+//                            xr = new XmlRead();
+//                            Listas = xr.obtenerListas(xml);
+                            Listas = Xml.getObjListas(xml);
                         //cargarLista();
                         } else if (tipo_xml.equals("poner_voto")) {
                             System.out.println("Voto realizado correctamente");

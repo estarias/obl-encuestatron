@@ -17,7 +17,7 @@
         <h2>Complete los datos solicitados para realizar la b&uacute;squeda</h2>
         <form action="<%=application.getContextPath()%>/Consultas?comando=busqueda" method="POST">
             Serie: <input type="text" name="serie" maxlength="3" align="middle" value=""/>
-            N&uacute;mero: <input type="text" name="numero" maxlength="6" value=""/><br/>
+            N&uacute;mero: <input type="text" name="numero" maxlength="6" value=""/>
             <input type="hidden" name="comando" value="busqueda">
             <input type="submit" value="busqueda">
         </form>        

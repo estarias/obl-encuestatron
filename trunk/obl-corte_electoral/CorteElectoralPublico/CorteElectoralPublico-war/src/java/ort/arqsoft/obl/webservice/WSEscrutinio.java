@@ -12,7 +12,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 import ort.arqsoft.obl.communication.SocketCommunication;
 import ort.arqsoft.obl.dominio.Lista;
-import ort.arqsoft.obl.utils.Xml;
+import ort.arqsoft.obl.xml.Xml;
 
 /**
  *

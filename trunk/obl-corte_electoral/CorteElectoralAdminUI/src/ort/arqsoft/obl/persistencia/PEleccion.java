@@ -2,22 +2,20 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package ort.arqsoft.obl.persistencia;
 
 import java.sql.*;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import ort.arqsoft.obl.dominio.Circuito;
 import ort.arqsoft.obl.utils.ConnectionDB;
 
 /**
  *
  * @author Felipe
  */
-public class PCircuito {
-
-    private ConnectionDB conect;
+public class PEleccion {
+private ConnectionDB conect;
 
     private Connection conectarDB() {
         //Crear un objeto de la clase de conexión
@@ -32,30 +30,52 @@ public class PCircuito {
         return conect.closeConecction();
     }
 
-    public Circuito listarCircuitos(String serie, String numero) {
-        Circuito circuito = new Circuito();
+    public boolean grabarEstado(String estado) {
+        String strSQL;
+        boolean result = true;
+        Connection con = conectarDB();
+        try {
+            if (con != null) {
+
+                //ResultSet rs = null;
+                Statement stm = con.createStatement();
+                
+                strSQL = "UPDATE elecciones SET escrutinio ='" + estado + "'";
+
+                //Ejecuta la consulta SQL
+                int nfilas = stm.executeUpdate(strSQL);
+
+                //Cerrar todo
+                stm.close();
+                if (!desconectarDB()) {
+                    //Error al cerrar la conexión
+                }
+            }
+        }catch (SQLException ex) {
+            result = false;
+            Logger.getLogger(PLista.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+
+    public String estadoEscutinio() {
+        String estado = "";
         Connection con = conectarDB();
         try {
             if (con != null) {
 
                 ResultSet rs = null;
                 Statement stm = con.createStatement();
-                String strSQL = "SELECT * FROM circuitos WHERE serie = '" + serie + "' AND desde <= " + numero + " AND hasta >= " + numero + " AND activo = 1";
+                String strSQL = "SELECT * FROM elecciones WHERE id = 1";
                 //Ejecuta la consulta SQL
                 rs = stm.executeQuery(strSQL);
 
                 //Trabajar con el result set…
-//                if (rs.next()) {
-                while (rs.next()) {                    
-                    circuito.setId(rs.getLong("id"));
-                    circuito.setNroCircuito(rs.getLong("nroCircuito"));
-                    circuito.setSerie(rs.getString("serie"));
-                    circuito.setDesde(rs.getLong("desde"));
-                    circuito.setHasta(rs.getLong("hasta"));
-                    circuito.setLocal(rs.getString("local"));
-                    circuito.setDireccion(rs.getString("direccion"));
-                    circuito.setActivo(rs.getInt("activo"));                    
+                //while (rs.next()) {
+                if (rs.next()) {
+                    estado = rs.getString("escrutinio");
                 }
+
                 //Cerrar todo
                 rs.close();
                 stm.close();
@@ -66,6 +86,7 @@ public class PCircuito {
         }catch (SQLException ex) {
             Logger.getLogger(PLista.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return circuito;
-    }   
+        return estado;
+    }
+
 }

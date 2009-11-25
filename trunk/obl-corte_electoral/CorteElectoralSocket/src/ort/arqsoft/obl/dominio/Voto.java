@@ -5,8 +5,6 @@
 
 package ort.arqsoft.obl.dominio;
 
-import java.util.Date;
-
 /**
  *
  * @author Felipe
