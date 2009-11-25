@@ -48,6 +48,7 @@ public class frmLogin extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocationByPlatform(true);
 
         txtClave.setText("felipe");
 
@@ -127,10 +128,12 @@ public class frmLogin extends javax.swing.JFrame {
         if (!Usuario.equals("") && !Clave.equals("")){
               pl = new PLogin();
               if (pl.loginUser(Usuario, Clave)){
-
+                 frmAdmin frmA = new frmAdmin();
                  this.dispose();
-                 new frmAdmin().setVisible(true);
                  
+                 frmA.setLocationRelativeTo(null);
+                 frmA.setVisible(true);
+                 //new frmAdmin().setVisible(true);
               }else{
 
               }
@@ -142,24 +145,8 @@ public class frmLogin extends javax.swing.JFrame {
     */
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                
-//                //Crear un objeto de la clase de conexión
-//                ConnectionDB conect = new ConnectionDB();
-//                //Obtener la conexión
-//                Connection con = conect.mkConection();
-//                if(con != null){
-                        
-                    new frmLogin().setVisible(true);
-
-//                    try {
-//                        con.close();
-//                    } catch (SQLException ex) {
-//                        Logger.getLogger(frmLogin.class.getName()).log(Level.SEVERE, null, ex);
-//                    }
-//                }
-//                if(conect!=null); conect = null;
-//                if(con!=null); con = null;
+            public void run() {                
+               new frmLogin().setVisible(true);
             }      
         });
     }

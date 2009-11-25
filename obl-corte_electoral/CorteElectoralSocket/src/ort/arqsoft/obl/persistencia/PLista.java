@@ -41,7 +41,7 @@ public class PLista {
 
                 ResultSet rs = null;
                 Statement stm = con.createStatement();
-                String strSQL = "SELECT * FROM listas";
+                String strSQL = "SELECT * FROM listas WHERE activo = 1";
                 //Ejecuta la consulta SQL
                 rs = stm.executeQuery(strSQL);
 

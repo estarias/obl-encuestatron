@@ -16,7 +16,7 @@ import java.net.Socket;
 //import ort.arqsoft.obl.utils.XmlRead;
 import ort.arqsoft.obl.utils.PrintAndWriterLog;
 //import ort.arqsoft.obl.utils.PrintLog;
-import ort.arqsoft.obl.utils.Xml;
+import ort.arqsoft.obl.xml.Xml;
 //import ort.arqsoft.obl.utils.XmlCreate;
 
 /**
@@ -30,15 +30,11 @@ public class SocketWorker extends Thread {
     //private BufferedWriter out = null;
     //private PrintLog pl = null;
     private SocketServer server = null;
-    //private XmlRead lx;
-
+    
     public SocketWorker(SocketServer server, Socket client) {
         this.server = server;
         this.client = client;
-        Print("Port para el dialogo: " + this.client.getPort());
-    //this.pl = PrintLog.getInstance();
-    //this.pl.setPrefix("[server]");
-    //this.pl.printMsg("Port para el dialogo: " + this.client.getPort());
+        Print("Port para el dialogo: " + this.client.getPort());   
     }
 
     public Socket getSocketClient() {
