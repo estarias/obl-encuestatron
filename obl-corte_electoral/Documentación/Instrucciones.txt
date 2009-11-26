@@ -1,0 +1,29 @@
+Para ejecutar el ejemplo se deben cumplir los siguientes requisitos:
+
+
+1. Abrir los proyectos en NetBeans 6.5.1 o superior (se recomienta 6.7)
+
+
+2. Configurar uns origen de datos ODBC (Panel de Control/Orígenes de datos (ODBC)/
+	a. DSN de Sistema.
+	b. Agregar.
+	c. Driver de Microsoft Access.
+	d. Finalizar.
+	e. Nombre de origen de datos: corte_DB
+	f. Descripción: Corte Electoral DB
+	g. Seleccionar y vamos a seleccionar el archivo .mdb "...\Proyectos\CorteElectoral_DB\corte_db.mdb".
+	
+Nota: IMPORTANTE QUE SE RESPETE EL NOMBRE!!	
+
+
+3. Levantar Glassfish V2.
+
+
+4. Ejecutar la aplicación.
+	* Para poder probar todo el funcionamiento del sistema se debe correr en primer lugar el proyecto "CorteElectoralSocket".
+	* Luego si se puede levantar cualquiera de los demas proyectos.
+	* El usuario y la pass del proyecto CircuitoElectoralUI es "admin" "admin"
+
+
+ante cualquier duda ;-)
+fefeap27@gmail.com
