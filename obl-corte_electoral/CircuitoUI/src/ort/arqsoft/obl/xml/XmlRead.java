@@ -46,7 +46,7 @@ public class XmlRead {
         return tipo_xml;
     }
 
-    public ArrayList<Lista> obtenerListas(String xml) {
+    public ArrayList<Lista> obtenerListas(String xml, boolean updateFile) {
         ArrayList<Lista>  Listas = null;
         
         try {
@@ -69,9 +69,11 @@ public class XmlRead {
                 Listas = getDataFromXMLListasPartidos(document);
 
                 //XmlSave.setOut(".\\Listas.xml");
-                XmlSave.setOut(Constants.PATH_LISTASXML);
-                XmlSave.write(xml);
-                XmlSave.flush();
+                if (updateFile){
+                    XmlSave.setOut(Constants.PATH_LISTASXML);
+                    XmlSave.write(xml);
+                    XmlSave.flush();
+                }
             }
                        
         } catch (Exception e) {

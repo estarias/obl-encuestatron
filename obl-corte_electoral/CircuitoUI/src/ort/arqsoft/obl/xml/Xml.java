@@ -113,11 +113,11 @@ public class Xml {
         return xmlRespuesta;
     }
 
-     public static ArrayList<Lista> getObjListas(String xml){
+     public static ArrayList<Lista> getObjListas(String xml, boolean updateFile){
         XmlRead xmlRead = new XmlRead();
         ArrayList<Lista> listas = new ArrayList<Lista>();
         
-        listas = xmlRead.obtenerListas(xml);
+        listas = xmlRead.obtenerListas(xml, updateFile);
         
         return listas;
     }
