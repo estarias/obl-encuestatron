@@ -158,7 +158,7 @@ public class frmUrna extends javax.swing.JFrame {
                 if (tipo_xml.equals("envio_listas")) {
                     //xr = new XmlRead();
                     //Listas = xr.obtenerListas(xml);
-                    Listas = Xml.getObjListas(xml);
+                    Listas = Xml.getObjListas(xml, true);
                 //cargarLista();
                 } else if (tipo_xml.equals("poner_voto")) {
                     System.out.println("Voto realizado correctamente");
@@ -179,7 +179,7 @@ public class frmUrna extends javax.swing.JFrame {
                         if (tipo_xml.equals("envio_listas")) {
 //                            xr = new XmlRead();
 //                            Listas = xr.obtenerListas(xml);
-                            Listas = Xml.getObjListas(xml);
+                            Listas = Xml.getObjListas(xml, false);
                         //cargarLista();
                         } else if (tipo_xml.equals("poner_voto")) {
                             System.out.println("Voto realizado correctamente");
@@ -228,6 +228,7 @@ public class frmUrna extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         lstListas = new javax.swing.JList();
         lblListas = new javax.swing.JLabel();
+        lblListas1 = new javax.swing.JLabel();
         pnlTitulo = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -273,6 +274,9 @@ public class frmUrna extends javax.swing.JFrame {
         lblListas.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lblListas.setText("Listas del partido politico ''.");
 
+        lblListas1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        lblListas1.setText("Advertencia !! Si selecciona más de una lista su voto será anulado.");
+
         javax.swing.GroupLayout pnlListasLayout = new javax.swing.GroupLayout(pnlListas);
         pnlListas.setLayout(pnlListasLayout);
         pnlListasLayout.setHorizontalGroup(
@@ -280,15 +284,20 @@ public class frmUrna extends javax.swing.JFrame {
             .addGroup(pnlListasLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlListasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
-                    .addComponent(lblListas))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
+                    .addGroup(pnlListasLayout.createSequentialGroup()
+                        .addComponent(lblListas)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 363, Short.MAX_VALUE)
+                        .addComponent(lblListas1)))
                 .addContainerGap())
         );
         pnlListasLayout.setVerticalGroup(
             pnlListasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlListasLayout.createSequentialGroup()
                 .addContainerGap(17, Short.MAX_VALUE)
-                .addComponent(lblListas)
+                .addGroup(pnlListasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblListas)
+                    .addComponent(lblListas1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 199, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -300,7 +309,7 @@ public class frmUrna extends javax.swing.JFrame {
 
         jLabel1.setText("Urna digital - Circuito número: ");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14));
         jLabel2.setText("Siguiente votación en");
 
         lblTiempo.setFont(new java.awt.Font("Tahoma", 1, 24));
@@ -341,7 +350,7 @@ public class frmUrna extends javax.swing.JFrame {
 
         pnlBotones.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        btnP1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnP1.setFont(new java.awt.Font("Tahoma", 1, 12));
         btnP1.setText("PARTIDO 1");
         btnP1.setToolTipText("Votar al partido politico 1");
         btnP1.addActionListener(new java.awt.event.ActionListener() {
@@ -350,7 +359,7 @@ public class frmUrna extends javax.swing.JFrame {
             }
         });
 
-        btnP2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnP2.setFont(new java.awt.Font("Tahoma", 1, 12));
         btnP2.setText("PARTIDO 2");
         btnP2.setToolTipText("Votar al partido politico 2");
         btnP2.addActionListener(new java.awt.event.ActionListener() {
@@ -359,7 +368,7 @@ public class frmUrna extends javax.swing.JFrame {
             }
         });
 
-        btnP3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnP3.setFont(new java.awt.Font("Tahoma", 1, 12));
         btnP3.setText("PARTIDO 3");
         btnP3.setToolTipText("Votar al partido politico 3");
         btnP3.addActionListener(new java.awt.event.ActionListener() {
@@ -368,7 +377,7 @@ public class frmUrna extends javax.swing.JFrame {
             }
         });
 
-        btnP4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnP4.setFont(new java.awt.Font("Tahoma", 1, 12));
         btnP4.setText("PARTIDO 4");
         btnP4.setToolTipText("Votar al partido politico 4");
         btnP4.addActionListener(new java.awt.event.ActionListener() {
@@ -377,7 +386,7 @@ public class frmUrna extends javax.swing.JFrame {
             }
         });
 
-        btnP5.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnP5.setFont(new java.awt.Font("Tahoma", 1, 12));
         btnP5.setText("PARTIDO 5");
         btnP5.setToolTipText("Votar al partido politico 5");
         btnP5.addActionListener(new java.awt.event.ActionListener() {
@@ -386,7 +395,7 @@ public class frmUrna extends javax.swing.JFrame {
             }
         });
 
-        btnB.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        btnB.setFont(new java.awt.Font("Tahoma", 1, 12));
         btnB.setText("EN BLANCO");
         btnB.setToolTipText("Votar en blanco");
         btnB.addActionListener(new java.awt.event.ActionListener() {
@@ -445,7 +454,7 @@ public class frmUrna extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        lblMsj.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        lblMsj.setFont(new java.awt.Font("Tahoma", 1, 18));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -458,7 +467,7 @@ public class frmUrna extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(pnlPartidosPoliticos, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(pnlListas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(pnlTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(pnlTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 1022, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addComponent(lblMsj, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -487,7 +496,7 @@ public class frmUrna extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(10, 10, 10)
-                        .addComponent(btnVotar, javax.swing.GroupLayout.PREFERRED_SIZE, 1022, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnVotar, javax.swing.GroupLayout.DEFAULT_SIZE, 1032, Short.MAX_VALUE))
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -638,7 +647,12 @@ public class frmUrna extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
             public void run() {
-                new frmUrna().setVisible(true);
+                frmUrna frmU = new frmUrna();
+
+                frmU.setLocationRelativeTo(null);
+                frmU.setVisible(true);
+          
+                //new frmUrna().setVisible(true);
             }
         });
     }
@@ -657,6 +671,7 @@ public class frmUrna extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblListas;
+    private javax.swing.JLabel lblListas1;
     private javax.swing.JLabel lblMsj;
     private javax.swing.JLabel lblTiempo;
     private javax.swing.JList lstListas;

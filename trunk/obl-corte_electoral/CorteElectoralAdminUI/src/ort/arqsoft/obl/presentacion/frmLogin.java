@@ -50,10 +50,6 @@ public class frmLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
 
-        txtClave.setText("felipe");
-
-        txtUsuario.setText("felipe");
-
         jLabel1.setText("Usuario:");
 
         jLabel2.setText("Contraseña:");
