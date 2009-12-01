@@ -1,5 +1,5 @@
 
-package ort.discom.obl.dominio;
+package ort.discom.obl.entidades;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,28 +8,43 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 @Entity
-public class Encuesta implements Serializable {
+public class Pregunta implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @OneToOne
-    private Cliente propietario;
-    private ArrayList lasPreguntas = new ArrayList();
-    private String nombre;
-    private String clave;
+
+    private ArrayList respuestas = new ArrayList();
+    private String planteo;
     @Temporal(javax.persistence.TemporalType.DATE)
-    private Date fecha_ingreso;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date fecha_modificacion;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date fecha_comienzo;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date fecha_cierre;
+    private Date ultima_contestada;
+
+    public String getPlanteo() {
+        return planteo;
+    }
+
+    public void setPlanteo(String planteo) {
+        this.planteo = planteo;
+    }
+
+    public ArrayList getRespuestas() {
+        return respuestas;
+    }
+
+    public void setRespuestas(ArrayList respuestas) {
+        this.respuestas = respuestas;
+    }
+
+    public Date getUltima_contestada() {
+        return ultima_contestada;
+    }
+
+    public void setUltima_contestada(Date ultima_contestada) {
+        this.ultima_contestada = ultima_contestada;
+    }
 
     public Long getId() {
         return id;
@@ -49,10 +64,10 @@ public class Encuesta implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Encuesta)) {
+        if (!(object instanceof Pregunta)) {
             return false;
         }
-        Encuesta other = (Encuesta) object;
+        Pregunta other = (Pregunta) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -61,7 +76,7 @@ public class Encuesta implements Serializable {
 
     @Override
     public String toString() {
-        return "ort.discom.obl.dominio.Encuesta[id=" + id + "]";
+        return "ort.discom.obl.dominio.Pregunta[id=" + id + "]";
     }
 
 }

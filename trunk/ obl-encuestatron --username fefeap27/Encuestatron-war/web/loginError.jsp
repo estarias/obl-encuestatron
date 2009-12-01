@@ -3,9 +3,10 @@
     <head>
         <title>Credenciales inv&aacute;lidas</title>
     </head>
-    <body>
+    <body bgcolor="#c0c0c0">
         <%@include file="cabezal.jsp" %>
-        <h2>Usuario y/o Contrase&ntilde;a incorrectos</h2>
-        <a href="javascript:history.back()">Volver</a>
+        <h2>Login y/o Password incorrectos</h2>
+        <a href="index.jsp">Volver</a>
+        <%@include file="pie.html" %>
     </body>
 </html>

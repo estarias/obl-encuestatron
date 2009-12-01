@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import javax.ejb.Stateless;
-import ort.discom.obl.dominio.Cliente;
+import ort.discom.obl.entidades.Cliente;
 
 
 @Stateless

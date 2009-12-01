@@ -2,7 +2,7 @@
 package ort.discom.obl.controlador;
 
 
-import ort.discom.obl.dominio.*;
+import ort.discom.obl.entidades.*;
 import ort.discom.obl.negocio.*;
 
 import javax.ejb.EJB;
