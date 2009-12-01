@@ -31,8 +31,8 @@ import ort.discom.obl.entidades.Usuario;
  *
  * @author Felipe
  */
-@DeclareRoles({"USUARIO"})
-@RolesAllowed({"USUARIO"})
+@DeclareRoles({"ADMINISTRADOR"})
+@RolesAllowed({"ADMINISTRADOR"})
 @Stateless
 @WebService
 public class ManejadorUsuariosBean implements ManejadorUsuariosRemote, ManejadorUsuariosLocal {

@@ -33,7 +33,7 @@ public class Usuario implements Serializable {
     private String password;
 
     @Column(length=16, nullable=false)
-    private String rol = "USUARIO";
+    private String rol = "ADMINISTRADOR";
 
     @Column(length=32, nullable=false)
     private String nombre;

@@ -60,9 +60,9 @@ public class ControladorABMUsuarios extends HttpServlet {
                 }
             } else {
                 if (apellido != null && apellido.length() > 0) {
-                    mensaje += "Mostrando usuarios cuyo apellido comienza con: " + apellido;
+                    mensaje += "Mostrando Agentes cuyo apellido comienza con: " + apellido;
                 } else {
-                    mensaje += "Mostrando todos los usuarios";
+                    mensaje += "Mostrando todos los Agentes";
                 }
             }
 
@@ -70,7 +70,7 @@ public class ControladorABMUsuarios extends HttpServlet {
             // que la vista pueda recuperarlo y buscarlo
             request.setAttribute("usuarios", usuarios);
 
-            forwardTo = "/usuarios/listarUsuarios.jsp";
+            forwardTo = "/administradores/listarAgentes.jsp";
 
             // Recuerdo los filtros de la búsqueda
             // cuando se crea, edita o borra un usuario siempre se vuelve a la
@@ -84,7 +84,7 @@ public class ControladorABMUsuarios extends HttpServlet {
             // Le paso al editor el comando que deberá enviarme para grabar el usuario
             request.setAttribute("comando", "Alta");
 
-            forwardTo = "/usuarios/editarUsuario.jsp";
+            forwardTo = "/administradores/editarAgente.jsp";
 
         } else if (comando.equals("Editar")) {
 
@@ -101,7 +101,7 @@ public class ControladorABMUsuarios extends HttpServlet {
                 request.setAttribute("comando", "Modificar");
 
                 mensaje += "Editando usuario existente";
-                forwardTo = "/usuarios/editarUsuario.jsp";
+                forwardTo = "/administradores/editarAgente.jsp";
             } else {
                 mensaje += "No se encontr&oacuute; el usuario " + login;
                 forwardTo = "/controladorABMUsuarios?comando=Buscar&apellido=" + request.getSession().getAttribute("ultimoApellidoBuscado");

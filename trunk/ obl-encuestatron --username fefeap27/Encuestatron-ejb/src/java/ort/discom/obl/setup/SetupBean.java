@@ -17,8 +17,8 @@ import ort.discom.obl.servicios.ManejadorUsuariosLocal;
  */
 
 @Stateless
-@DeclareRoles({"USUARIO"})
-@RunAs("USUARIO")
+@DeclareRoles({"ADMINISTRADOR"})
+@RunAs("ADMINISTRADOR")
 public class SetupBean implements SetupLocal {
 
     @EJB
