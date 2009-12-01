@@ -7,7 +7,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
     </head>
-    <body>
+    <body bgcolor="#c0c0c0">
         <%@include file="cabezal.jsp" %>
         <h2>Ingreso al sistema</h2>
         <form action="j_security_check" method="POST">
@@ -15,5 +15,6 @@
             Contrase&ntilde;a:<input type="password" name="j_password">
             <input type="submit" value="Ingresar">
         </form>
+        <%@include file="pie.html" %>
     </body>
 </html>

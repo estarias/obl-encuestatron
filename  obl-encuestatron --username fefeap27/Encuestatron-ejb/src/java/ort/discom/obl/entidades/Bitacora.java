@@ -1,4 +1,4 @@
-package ort.discom.obl.dominio;
+package ort.discom.obl.entidades;
 
 import java.io.Serializable;
 import java.util.Date;

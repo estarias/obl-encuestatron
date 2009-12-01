@@ -1,6 +1,6 @@
 package ort.discom.obl.negocio;
 import java.util.List;
-import ort.discom.obl.dominio.Cliente;
+import ort.discom.obl.entidades.Cliente;
 import javax.ejb.Local;
 
 

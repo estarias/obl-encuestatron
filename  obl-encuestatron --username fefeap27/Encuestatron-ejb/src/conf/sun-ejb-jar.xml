@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sun-ejb-jar PUBLIC "-//Sun Microsystems, Inc.//DTD Application Server 9.0 EJB 3.0//EN" "http://www.sun.com/software/appserver/dtds/sun-ejb-jar_3_0-0.dtd">
+<sun-ejb-jar>
+  <security-role-mapping>
+    <role-name>USUARIO</role-name>
+    <group-name>USUARIO</group-name>
+  </security-role-mapping>
+  <enterprise-beans>
+    <ejb>
+      <ejb-name>ManejadorUsuariosBean</ejb-name>
+      <resource-ref>
+        <res-ref-name>jms/LoggerMDBQueueFactory</res-ref-name>
+        <jndi-name>jms/LoggerMDBQueueFactory</jndi-name>
+      </resource-ref>
+      <message-destination-ref>
+        <message-destination-ref-name>jms/LoggerMDBQueue</message-destination-ref-name>
+        <jndi-name>jms/LoggerMDBQueue</jndi-name>
+      </message-destination-ref>
+    </ejb>
+  </enterprise-beans>
+</sun-ejb-jar>

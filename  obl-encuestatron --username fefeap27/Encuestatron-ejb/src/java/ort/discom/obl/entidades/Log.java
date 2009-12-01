@@ -1,41 +1,50 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
 
-package ort.discom.obl.dominio;
+package ort.discom.obl.entidades;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import java.util.Date;
+import javax.persistence.Temporal;
 
+/**
+ *
+ * @author Felipe
+ */
 
 @Entity
-public class Respuesta implements Serializable {
-    private static final long serialVersionUID = 1L;
+public class Log implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private int contador;
-    @OneToOne
-    private Pregunta pregunta_condicionada;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date fechaHora;
 
-    public int getContador() {
-        return contador;
+    private String mensaje;
+
+    public Date getFechaHora() {
+        return fechaHora;
     }
 
-    public void setContador(int contador) {
-        this.contador = contador;
+    public void setFechaHora(Date fechaHora) {
+        this.fechaHora = fechaHora;
     }
 
-    public Pregunta getPregunta_condicionada() {
-        return pregunta_condicionada;
+    public String getMensaje() {
+        return mensaje;
     }
 
-    public void setPregunta_condicionada(Pregunta pregunta_condicionada) {
-        this.pregunta_condicionada = pregunta_condicionada;
+    public void setMensaje(String mensaje) {
+        this.mensaje = mensaje;
     }
-
 
     public Long getId() {
         return id;
@@ -55,10 +64,10 @@ public class Respuesta implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Respuesta)) {
+        if (!(object instanceof Log)) {
             return false;
         }
-        Respuesta other = (Respuesta) object;
+        Log other = (Log) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -67,7 +76,6 @@ public class Respuesta implements Serializable {
 
     @Override
     public String toString() {
-        return "ort.discom.obl.dominio.Respuesta[id=" + id + "]";
+        return "entidades.Log[id=" + id + "]";
     }
-
 }
