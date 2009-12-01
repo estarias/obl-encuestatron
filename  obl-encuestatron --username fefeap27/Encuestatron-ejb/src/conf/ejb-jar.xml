@@ -8,7 +8,7 @@
 
         <security-role>
             <description>Rol general</description>
-            <role-name>USUARIO</role-name>
+            <role-name>ADMINISTRADOR</role-name>
         </security-role>
         
     </assembly-descriptor>

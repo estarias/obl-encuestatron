@@ -3,8 +3,8 @@
 <sun-web-app error-url="errorDeAutorizacion.jsp">
   <context-root>/Encuestatron-war</context-root>
   <security-role-mapping>
-    <role-name>USUARIO</role-name>
-    <group-name>USUARIO</group-name>
+    <role-name>ADMINISTRADOR</role-name>
+    <group-name>ADMINISTRADOR</group-name>
   </security-role-mapping>
   <class-loader delegate="true"/>
   <jsp-config>

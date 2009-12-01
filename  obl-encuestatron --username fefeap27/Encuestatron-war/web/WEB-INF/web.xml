@@ -64,7 +64,7 @@
     <security-constraint>
         <display-name>Constraint1</display-name>
         <web-resource-collection>
-            <web-resource-name>usuarios</web-resource-name>
+            <web-resource-name>administradores</web-resource-name>
             <description/>
             <url-pattern>/usuarios/*</url-pattern>
             <http-method>GET</http-method>
@@ -89,7 +89,7 @@
         </web-resource-collection>
         <auth-constraint>
             <description/>
-            <role-name>USUARIO</role-name>
+            <role-name>ADMINISTRADOR</role-name>
             </auth-constraint>
         </security-constraint>
     <login-config>
@@ -102,6 +102,6 @@
         </login-config>
     <security-role>
         <description/>
-        <role-name>USUARIO</role-name>
+        <role-name>ADMINISTRADOR</role-name>
     </security-role>
     </web-app>
