@@ -1,0 +1,18 @@
+Servidor de red Apache Derby - 10.4.2.1 - (706043) se ha iniciado y está listo para aceptar conexiones en el puerto 1527 a las 2009-12-02 02:19:32.265 GMT 
+----------------------------------------------------------------
+2009-12-02 02:19:32.687 GMT:
+ Arrancando Derby versión The Apache Software Foundation - Apache Derby - 10.4.2.1 - (706043): instancia a816c00e-0125-4d2f-6feb-00000b708990
+en el directorio de base de datos D:\Documents and Settings\Felipe\Mis documentos\Felipe\ORT\Diseño de Componentes\Obligatorio\Proyecto-obl\DB\db_obl  
+
+Cargador de clases de base de datos iniciado - derby.database.classpath=''
+
+2009-12-02 02:19:38.390 GMT:
+Concluyendo instancia a816c00e-0125-4d2f-6feb-00000b708990
+----------------------------------------------------------------
+2009-12-02 02:19:38.437 GMT Thread[DRDAConnThread_3,5,main] (DATABASE = db_obl), (DRDAID = {2}), Conclusión de la base de datos 'db_obl'.
+----------------------------------------------------------------
+2009-12-02 02:19:42.171 GMT:
+ Arrancando Derby versión The Apache Software Foundation - Apache Derby - 10.4.2.1 - (706043): instancia 629f8094-0125-4d2f-6feb-00000b708990
+en el directorio de base de datos D:\Documents and Settings\Felipe\Mis documentos\Felipe\ORT\Diseño de Componentes\Obligatorio\Proyecto-obl\DB\db_obl  
+
+Cargador de clases de base de datos iniciado - derby.database.classpath=''
