@@ -6,6 +6,10 @@
     <role-name>ADMINISTRADOR</role-name>
     <group-name>ADMINISTRADOR</group-name>
   </security-role-mapping>
+  <security-role-mapping>
+    <role-name>AGENTE</role-name>
+    <group-name>AGENTE</group-name>
+  </security-role-mapping>
   <class-loader delegate="true"/>
   <jsp-config>
     <property name="keepgenerated" value="true">
