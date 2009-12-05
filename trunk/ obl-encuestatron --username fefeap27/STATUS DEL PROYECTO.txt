@@ -1,6 +1,0 @@
-nombre: db_obl
-usr: obl
-passw: obl
-
-ruta: dentro del proy /DB
-
