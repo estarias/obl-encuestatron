@@ -1,6 +1,13 @@
-nombre: db_obl
-usr: obl
-passw: obl
+base de datos:
+	nombre: db_obl
+	usr: obl
+	passw: obl
 
-ruta: dentro del proy /DB
+	path: dentro del proy /DB
+
+
+dominio de seguridad:
+	ver foto :Documentacion/config_dominio.jpg
+
+
 
