@@ -9,8 +9,6 @@ import ort.discom.obl.entidades.Agente;
 import ort.discom.obl.negocio.*;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;

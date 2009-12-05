@@ -92,6 +92,37 @@
             <role-name>ADMINISTRADOR</role-name>
             </auth-constraint>
         </security-constraint>
+    <security-constraint>
+        <display-name>Agente_Constraint2</display-name>
+        <web-resource-collection>
+            <web-resource-name>agentes</web-resource-name>
+            <description/>
+            <url-pattern>/agentes/*</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+            <http-method>HEAD</http-method>
+            <http-method>PUT</http-method>
+            <http-method>OPTIONS</http-method>
+            <http-method>TRACE</http-method>
+            <http-method>DELETE</http-method>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>controladorEncuestas</web-resource-name>
+            <description/>
+            <url-pattern>/ControladorEncuesta</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+            <http-method>HEAD</http-method>
+            <http-method>PUT</http-method>
+            <http-method>OPTIONS</http-method>
+            <http-method>TRACE</http-method>
+            <http-method>DELETE</http-method>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>AGENTE</role-name>
+            </auth-constraint>
+        </security-constraint>
     <login-config>
         <auth-method>FORM</auth-method>
         <realm-name>dbobl</realm-name>
@@ -103,5 +134,9 @@
     <security-role>
         <description/>
         <role-name>ADMINISTRADOR</role-name>
+    </security-role>
+    <security-role>
+        <description/>
+        <role-name>AGENTE</role-name>
     </security-role>
     </web-app>
