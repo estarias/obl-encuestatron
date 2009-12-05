@@ -26,8 +26,10 @@ public class ControladorLogout extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+
         request.getSession().invalidate();
         response.sendRedirect("index.jsp");
+
 //        response.setContentType("text/html;charset=UTF-8");
 //        PrintWriter out = response.getWriter();
 //        try {
