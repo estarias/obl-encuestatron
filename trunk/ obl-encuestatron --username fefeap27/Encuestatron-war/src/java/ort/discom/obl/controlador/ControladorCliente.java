@@ -63,6 +63,7 @@ public class ControladorCliente extends HttpServlet {
             Date fecha_actual = new Date();            
             c.setFecha_ing(fecha_actual);
             c.setNombre(request.getParameter("nombre"));
+            c.setApellido(request.getParameter("apellido"));
             c.setTelefono(request.getParameter("telefono"));
 
             //u.setId(Long.parseLong("1")); //autonumerico si dios quiere por ahora le pongo 1
