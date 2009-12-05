@@ -43,7 +43,7 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ControladorLogout</servlet-name>
-        <url-pattern>/logout</url-pattern>
+        <url-pattern>/ControladorLogout</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Setup</servlet-name>       

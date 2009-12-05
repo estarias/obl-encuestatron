@@ -24,8 +24,11 @@
         <table border="1">
             <caption>Agentes</caption>
             <tr>
+                <th>Login</th>
                 <th>Nombre</th>
-                <th>Id</th>
+                <th>Apellido</th>
+                <th>e-Mail</th>
+                <th>Rol</th>
                 <th>Acci&oacute;n</th>
             </tr>
             <%
@@ -34,8 +37,11 @@
                          Agente agente = (Agente)agentes.get(i);
             %>
             <tr>
-                <td><%= agente.getNombre()%></td>
                 <td><%= agente.getLogin()%></td>
+                <td><%= agente.getNombre()%></td>
+                <td><%= agente.getApellido()%></td>
+                <td><%= agente.getEmail()%></td>
+                <td><%= agente.getRol()%></td>
                 <td>
                     <a href="<%=application.getContextPath()%>/ControladorAgente?comando=editar&login=<%=agente.getLogin()%>">Editar</a>
                     <a href="<%=application.getContextPath()%>/ControladorAgente?comando=eliminar&login=<%=agente.getLogin()%>">Eliminar</a>
