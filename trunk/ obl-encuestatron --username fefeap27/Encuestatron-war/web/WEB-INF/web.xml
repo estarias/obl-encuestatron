@@ -76,9 +76,21 @@
             <http-method>DELETE</http-method>
         </web-resource-collection>
         <web-resource-collection>
-            <web-resource-name>controladorUsuarios</web-resource-name>
+            <web-resource-name>controladorAgente</web-resource-name>
             <description/>
-            <url-pattern>/ControladorABMUsuarios</url-pattern>
+            <url-pattern>/ControladorAgente</url-pattern>
+            <http-method>GET</http-method>
+            <http-method>POST</http-method>
+            <http-method>HEAD</http-method>
+            <http-method>PUT</http-method>
+            <http-method>OPTIONS</http-method>
+            <http-method>TRACE</http-method>
+            <http-method>DELETE</http-method>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>controladorCliente</web-resource-name>
+            <description/>
+            <url-pattern>/ControladorCliente</url-pattern>
             <http-method>GET</http-method>
             <http-method>POST</http-method>
             <http-method>HEAD</http-method>
@@ -107,7 +119,7 @@
             <http-method>DELETE</http-method>
         </web-resource-collection>
         <web-resource-collection>
-            <web-resource-name>controladorEncuestas</web-resource-name>
+            <web-resource-name>controladorEncuesta</web-resource-name>
             <description/>
             <url-pattern>/ControladorEncuesta</url-pattern>
             <http-method>GET</http-method>

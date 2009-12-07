@@ -7,10 +7,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Mega sitio</title>
     </head>
-    <body><table border="0" cellpadding="5" width="100%" bgcolor="#54FF4A">
+    <body><table align="center" border="0" cellpadding="5" width="1240" bgcolor="#D2E1F6">
             <tbody>
                 <tr>
-                    <td align="left">OBLIGATORIO 2009- Felipe Aguirregaray, Esteban Arias</td>
+                    <td align="center">OBLIGATORIO 2009- Felipe Aguirregaray, Esteban Arias</td>
                     <td align="right">
                         <%
                         if (request.getRemoteUser() != null) {
@@ -19,16 +19,21 @@
                         <%
                         }
                         %>
-                    </td>
+                    </td>                                        
+                </tr>
+                <tr align="right">
+                    
+                    <% if (request.getAttribute("mensaje") != null) {%>
+                    <font color="#FF1111"><%=request.getAttribute("mensaje")%></font>
+                    <%
+                            request.removeAttribute("mensaje");
+                        }
+                    %>
+                    
                 </tr>
             </tbody>
         </table>
-        <% if (request.getAttribute("mensaje") != null) {%>
-        <font color="#FF1111"><%=request.getAttribute("mensaje")%></font>
-        <%
-                request.removeAttribute("mensaje");
-            }
-        %>
+        
     </body>
 </html>
 

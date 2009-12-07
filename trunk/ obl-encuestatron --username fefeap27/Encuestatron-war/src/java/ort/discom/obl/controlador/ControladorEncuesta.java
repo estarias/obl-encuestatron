@@ -6,13 +6,24 @@
 package ort.discom.obl.controlador;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
+import javax.faces.convert.DateTimeConverter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import ort.discom.obl.entidades.Agente;
+import ort.discom.obl.entidades.Cliente;
 import ort.discom.obl.entidades.Encuesta;
+import ort.discom.obl.negocio.ManejadorAgenteRemote;
+import ort.discom.obl.negocio.ManejadorClienteRemote;
 import ort.discom.obl.negocio.ManejadorEncuestaRemote;
 
 /**
@@ -21,21 +32,33 @@ import ort.discom.obl.negocio.ManejadorEncuestaRemote;
  */
 public class ControladorEncuesta extends HttpServlet {
    
-     @EJB
+    @EJB
     private ManejadorEncuestaRemote encuestaBean;
+    @EJB
+    private ManejadorClienteRemote clienteBean;
+    @EJB
+    private ManejadorAgenteRemote agenteBean;
 
     @Override
     public void init() {
         if (getServletContext().getAttribute("encuestas") == null) {
             getServletContext().setAttribute("encuestas", encuestaBean);
         }
+        if (getServletContext().getAttribute("clientes") == null) {
+            getServletContext().setAttribute("clientes", clienteBean);
+        }
+        if (getServletContext().getAttribute("agentes") == null) {
+            getServletContext().setAttribute("agentes", agenteBean);
+        }
     }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+    throws ServletException, IOException, ParseException {
         String comando = request.getParameter("comando");
         String forwardTo = null;
         String mensaje = null;
+    
+    try {
 
         List<Encuesta> encuestas = encuestaBean.consultarTodos();
 
@@ -43,51 +66,65 @@ public class ControladorEncuesta extends HttpServlet {
             if (encuestas.size() == 0) {
                 mensaje = "No hay encuestas definidos en el sistema";
             }
+
             // Ejecuto la consulta
             request.setAttribute("resultado", encuestas);
-            forwardTo = "/administradores/mantenedorEncuesta.jsp";
+            forwardTo = "/agentes/mantenedorEncuestas.jsp";
 
         } else if (comando.equals("nuevo")) {
-            mensaje = "Alta de Agente";
-            forwardTo = "/administradores/editarEncuesta.jsp";
+            mensaje = "Alta de Encuesta";
+            forwardTo = "/agentes/editarEncuesta.jsp";
 
-        } else if (comando.equals("salvar")) {
-            Encuesta e = new Encuesta();
-            //u.setCelular(Integer.parseInt(request.getParameter("celular")));
-
+        } else if (comando.equals("Salvar")) {
+            Encuesta e = new Encuesta();            
+            DateFormat myDateFormat = new SimpleDateFormat("dd/mm/yyyy");            
+            //Date myDate = null;
+            //e.setId(Long.parseLong(request.getParameter("id")));
             e.setNombre(request.getParameter("nombre"));
-//            a.setApellido(request.getParameter("apellido"));
-//            a.setLogin(request.getParameter("login"));
-//            a.setPassword(request.getParameter("password"));
-//            a.setEmail(request.getParameter("email"));
-//            a.setRol("AGENTE");
+            e.setClave(request.getParameter("clave"));
+
+            try {
+                e.setFecha_ingreso(myDateFormat.parse(request.getParameter("fecha_ingreso")));
+                e.setFecha_modificacion(myDateFormat.parse(request.getParameter("fecha_modificacion")));
+                e.setFecha_comienzo(myDateFormat.parse(request.getParameter("fecha_comienzo")));
+                e.setFecha_cierre(myDateFormat.parse(request.getParameter("fecha_cierre")));
+            } catch (ParseException ex) {
+                 System.out.println("Invalid Date Parser Exception ");
+                 ex.printStackTrace();
+            }
+                     
+            e.setAgente(agenteBean.getAgente(request.getParameter("agente")));
+            e.setCliente(clienteBean.getCliente(Long.parseLong(request.getParameter("cliente"))));
 
             encuestaBean.guardarEncuesta(e);
+
             request.setAttribute("resultado", encuestas);
             mensaje = "Encuesta guardado";
-            forwardTo = "/administradores/mantenedorEncuestas.jsp";
+            forwardTo = "/agentes/mantenedorEncuestas.jsp";
+
         } else if (comando.equals("editar")) {
-            Long id = Long.parseLong( request.getParameter("id"));
+            long id = Long.parseLong(request.getParameter("id"));
             Encuesta e = encuestaBean.getEncuesta(id);
             if (e != null) {
                 request.setAttribute("encuesta", e);
                 mensaje = "Editando encuesta existente";
-                forwardTo = "/administradores/editarEncuesta.jsp";
+                forwardTo = "/agentes/editarEncuesta.jsp";
             } else {
-                mensaje = "No se encontr&oacuute; el encuesta" + id;
-                forwardTo = "/administradores/mantenedorEncuesta.jsp";
+                mensaje = "No se encontr&oacuute; la encuesta" + id;
+                forwardTo = "/agentes/mantenedorEncuesta.jsp";
             }
         } else if (comando.equals("eliminar")) {
-            Long id = Long.parseLong( request.getParameter("id"));
-//            agenteBean.eliminarAgente(id);
+            long id = Long.parseLong( request.getParameter("id"));
             encuestaBean.eliminarEncuesta(id);
             //if (agenteBean.eliminarAgente(id)) {
-                mensaje = "Agente eliminado: " + id;
+                mensaje = "Encuesta eliminada: " + id;
             //} else {
             //    mensaje = "No se encontr&oacuute; el agente " + id;
             //}
             request.setAttribute("resultado", encuestas);
-            forwardTo = "/administradores/mantenedorEncuesta.jsp";
+            forwardTo = "/agentes/mantenedorEncuestas.jsp";
+        } else if (comando.equals("Cancelar")) {
+            forwardTo = "/ControladorEncuesta?comando=listar";
         } else {
             mensaje = "No se reconoce el comando";
             forwardTo = "/index.jsp";
@@ -96,6 +133,10 @@ public class ControladorEncuesta extends HttpServlet {
             request.setAttribute("mensaje", mensaje);
         }
         request.getRequestDispatcher(forwardTo).forward(request, response);
+
+    } catch (Exception ex) {
+        System.out.println(ex.getMessage());
+    }
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -109,7 +150,11 @@ public class ControladorEncuesta extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(ControladorEncuesta.class.getName()).log(Level.SEVERE, null, ex);
+        }
     } 
 
     /** 
@@ -122,7 +167,11 @@ public class ControladorEncuesta extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(ControladorEncuesta.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /** 

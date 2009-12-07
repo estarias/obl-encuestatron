@@ -15,23 +15,29 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Mantenimiento de encuestas</title>
     </head>
-    <body>
+    <body bgcolor="#c0c0c0">
         <%@include file="../cabezal.jsp" %>
         <h2>Encuestas</h2>
-        <a href="<%=application.getContextPath()%>/ControladorEncuesta?comando=listar"><b>Lista de Encuestas</b></a>&nbsp;
-        <a href="<%=application.getContextPath()%>/ControladorEncuesta?comando=nuevo"><b>Alta de Encuesta</b></a>
+        <a href="<%=application.getContextPath()%>/ControladorEncuesta?comando=listar">Lista de Encuestas</a>&nbsp;
+        <a href="<%=application.getContextPath()%>/ControladorEncuesta?comando=nuevo">Alta de Encuesta</a>&nbsp;
         <%
             //ArrayList agentes = (ArrayList) request.getAttribute("resultado");
             List encuestas = (List) request.getAttribute("resultado");
             if (encuestas != null) {
         %>
         <br/><br/>
-        <table border="1">
+        <table border="2" align="center">
             <caption>Encuestas</caption>
             <tr>
             
                 <th>Id</th>
                 <th>Nombre</th>
+                <th>Cliente</th>
+                <th>Fecha de ingreso</th>
+                <th>Fecha de modificación</th>
+                <th>Fecha de comienzo</th>
+                <th>Fecha de cierre</th>
+                <th>Agente</th>
 
                 <th>Acci&oacute;n</th>
             </tr>
@@ -44,10 +50,16 @@
 
                 <td><%= encuesta.getId()%></td>
                 <td><%= encuesta.getNombre()%></td>
+                <td><%= encuesta.getCliente()%></td>
+                <td><%= encuesta.getFecha_ingreso()%></td>
+                <td><%= encuesta.getFecha_modificacion()%></td>
+                <td><%= encuesta.getFecha_comienzo()%></td>
+                <td><%= encuesta.getFecha_cierre()%></td>
+                <td><%= encuesta.getAgente()%></td>
 
                 <td>
-                    <a href="<%=application.getContextPath()%>/ControladorEncuesta?comando=editar&login=<%=encuesta.getId()%>">Editar</a>
-                    <a href="<%=application.getContextPath()%>/ControladorEncuesta?comando=eliminar&login=<%=encuesta.getId()%>">Eliminar</a>
+                    <a href="<%=application.getContextPath()%>/ControladorEncuesta?comando=editar&id=<%=encuesta.getId()%>">Editar</a>
+                    <a href="<%=application.getContextPath()%>/ControladorEncuesta?comando=eliminar&id=<%=encuesta.getId()%>">Eliminar</a>
                 </td>
             </tr>
             <%
@@ -57,6 +69,10 @@
         <%
             } // Cierro el if
 %>
+        <br/><br/><br/>
+        <a href="<%=application.getContextPath()%>/agentes/mantenedorPreguntas.jsp">Alta de Preguntas - Respuestas</a>
+        
+        <%@include file="../pie.html" %>
     </body>
 </html>
 

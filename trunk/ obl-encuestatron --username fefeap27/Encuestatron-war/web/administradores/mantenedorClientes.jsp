@@ -10,11 +10,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Mantenimiento de clientes</title>
     </head>
-    <body>
+    <body bgcolor="#c0c0c0">
         <%@include file="../cabezal.jsp" %>
         <h2>Clientes</h2>
-        <a href="<%=application.getContextPath()%>/ControladorCliente?comando=listar"><b>Lista de Clientes</b></a>&nbsp;
-        <a href="<%=application.getContextPath()%>/ControladorCliente?comando=nuevo"><b>Alta de Cliente</b></a>
+        <a href="<%=application.getContextPath()%>/ControladorCliente?comando=listar">Lista de Clientes</a>&nbsp;
+        <a href="<%=application.getContextPath()%>/ControladorCliente?comando=nuevo">Alta de Cliente</a>
         <%
             List clientes = (List) request.getAttribute("resultado");
             if (clientes != null) {
@@ -27,8 +27,7 @@
                 <th>Id</th>
                 <th>Acci&oacute;n</th>
             </tr>
-            <%
-                    //for (Usuario usuario : usuarios) {
+            <%                    
                     for (int i=0; i<clientes.size(); i++) {
                          Cliente cliente = (Cliente)clientes.get(i);
             %>
@@ -47,6 +46,7 @@
         <%
             } // Cierro el if
 %>
+        <%@include file="../pie.html" %>
     </body>
 </html>
 

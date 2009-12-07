@@ -52,7 +52,7 @@ public class ControladorAgente extends HttpServlet {
             mensaje = "Alta de Agente";
             forwardTo = "/administradores/editarAgente.jsp";
 
-        } else if (comando.equals("salvar")) {
+        } else if (comando.equals("Salvar")) {
             Agente a = new Agente();
             //u.setCelular(Integer.parseInt(request.getParameter("celular")));
                        
@@ -66,7 +66,8 @@ public class ControladorAgente extends HttpServlet {
             agenteBean.guardarAgente(a);
             request.setAttribute("resultado", agentes);
             mensaje = "Agente guardado";
-            forwardTo = "/administradores/mantenedorAgentes.jsp";
+            //forwardTo = "/administradores/mantenedorAgentes.jsp";
+            forwardTo = "/ControladorAgente?comando=listar&login=" + request.getParameter("login");
         } else if (comando.equals("editar")) {
 //            Long id = Long.parseLong( request.getParameter("login"));
 //            Agente u = agenteBean.getAgente(id);
@@ -92,6 +93,8 @@ public class ControladorAgente extends HttpServlet {
             //}
             request.setAttribute("resultado", agentes);
             forwardTo = "/administradores/mantenedorAgentes.jsp";
+        } else if (comando.equals("Cancelar")) {
+            forwardTo = "/ControladorAgente?comando=listar&login=" + request.getParameter("login");
         } else {
             mensaje = "No se reconoce el comando";
             forwardTo = "/index.jsp";
