@@ -16,6 +16,7 @@ public class Agente extends Usuario implements Serializable {
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.AUTO)
 //    private Long id;
+
     private ArrayList losClientes;
 
 //    public Long getId() {

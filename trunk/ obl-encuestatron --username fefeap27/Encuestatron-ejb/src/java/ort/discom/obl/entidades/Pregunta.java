@@ -4,10 +4,12 @@ package ort.discom.obl.entidades;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 @Entity
@@ -17,8 +19,12 @@ public class Pregunta implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private ArrayList respuestas = new ArrayList();
+    @OneToMany (mappedBy="pregunta")
+    private Set<Respuesta> lasRespuestas;
+    //private ArrayList lasRespuestas;
+
     private String planteo;
+
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date ultima_contestada;
 
@@ -28,14 +34,6 @@ public class Pregunta implements Serializable {
 
     public void setPlanteo(String planteo) {
         this.planteo = planteo;
-    }
-
-    public ArrayList getRespuestas() {
-        return respuestas;
-    }
-
-    public void setRespuestas(ArrayList respuestas) {
-        this.respuestas = respuestas;
     }
 
     public Date getUltima_contestada() {
@@ -54,29 +52,43 @@ public class Pregunta implements Serializable {
         this.id = id;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
+    /**
+     * @return the lasRespuestas
+     */
+    public Set<Respuesta> getLasRespuestas() {
+        return lasRespuestas;
     }
 
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pregunta)) {
-            return false;
-        }
-        Pregunta other = (Pregunta) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
+    /**
+     * @param lasRespuestas the lasRespuestas to set
+     */
+    public void setLasRespuestas(Set<Respuesta> lasRespuestas) {
+        this.lasRespuestas = lasRespuestas;
     }
 
-    @Override
-    public String toString() {
-        return "ort.discom.obl.dominio.Pregunta[id=" + id + "]";
-    }
+//    @Override
+//    public int hashCode() {
+//        int hash = 0;
+//        hash += (id != null ? id.hashCode() : 0);
+//        return hash;
+//    }
+//
+//    @Override
+//    public boolean equals(Object object) {
+//        // TODO: Warning - this method won't work in the case the id fields are not set
+//        if (!(object instanceof Pregunta)) {
+//            return false;
+//        }
+//        Pregunta other = (Pregunta) object;
+//        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+//            return false;
+//        }
+//        return true;
+//    }
+//
+//    @Override
+//    public String toString() {
+//        return "ort.discom.obl.dominio.Pregunta[id=" + id + "]";
+//    }
 
 }
