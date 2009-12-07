@@ -6,7 +6,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sistema de Encuestas</title>
-    </head>   
+    </head>  
+    <body bgcolor="#c0c0c0">
         <%@include file="cabezal.jsp" %>
 
         <h2>Administrador</h2>
@@ -16,18 +17,15 @@
         <br/>
 
         <h2>Agente</h2>
-            <a href="agentes/mantenedorEncuestas.jsp">Mantenimiento de Encuestas</a><br/>
-            <a href="agentes/consultarEncuestas_age.jsp">Consultas de Encuestas</a><br/>
+            <a href="<%=application.getContextPath()%>/ControladorEncuesta?comando=listar">Mantenimiento de Encuestas</a><br/>
+            <a href="agentes/consultarEncuestas_age.jsp">Consultas de Encuestas</a><br/>            
         <br/>
 
         <h2>Cliente</h2>
             <a href="clientes/consultarEncuestas_cli.jsp">Consultas de Encuestas</a><br/>
             <a href="clientes/consultarResultados_cli.jsp">Consultas de Resultados</a><br/>
         <br/>
-
-        <h2>Bienvenido a nuestro sitio Web</h2>
-        <a href="<%=application.getContextPath()%>/ControladorABMUsuarios?comando=Buscar">ABM de Usuarios</a>
-
+        
         <%@include file="pie.html" %>
     </body>
 </html>

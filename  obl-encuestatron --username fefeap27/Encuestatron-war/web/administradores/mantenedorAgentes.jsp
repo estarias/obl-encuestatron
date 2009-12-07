@@ -2,6 +2,7 @@
 <%@page import="java.util.ArrayList" %>
 <%@page import="java.util.List" %>
 <%@page import="ort.discom.obl.entidades.Agente" %>
+
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
@@ -10,11 +11,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Mantenimiento de agentes</title>
     </head>
-    <body>
+    <body bgcolor="#c0c0c0">
         <%@include file="../cabezal.jsp" %>
         <h2>Agentes</h2>
-        <a href="<%=application.getContextPath()%>/ControladorAgente?comando=listar"><b>Lista de Agentes</b></a>&nbsp;
-        <a href="<%=application.getContextPath()%>/ControladorAgente?comando=nuevo"><b>Alta de Agente</b></a>
+        <a href="<%=application.getContextPath()%>/ControladorAgente?comando=listar">Lista de Agentes</a>&nbsp;
+        <a href="<%=application.getContextPath()%>/ControladorAgente?comando=nuevo">Alta de Agente</a>
         <%
             //ArrayList agentes = (ArrayList) request.getAttribute("resultado");
             List agentes = (List) request.getAttribute("resultado");
@@ -54,6 +55,7 @@
         <%
             } // Cierro el if
 %>
+        <%@include file="../pie.html" %>
     </body>
 </html>
 
