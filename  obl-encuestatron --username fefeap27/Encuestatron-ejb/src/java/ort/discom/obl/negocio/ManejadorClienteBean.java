@@ -5,7 +5,10 @@ import java.util.List;
 import javax.ejb.Stateless;
 import ort.discom.obl.entidades.Cliente;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
 @Stateless
@@ -13,25 +16,55 @@ public class ManejadorClienteBean implements ManejadorClienteRemote {
 
     @PersistenceContext
     private EntityManager em;
+    
+//    @PersistenceContext
+//    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("jpa");
+//
+//    @PersistenceContext
+//    private EntityManager em = emf.createEntityManager();
+
 
     public Cliente guardarCliente(Cliente cli) {
-        em.persist(cli);
-        em.flush();
+        try{
+            em.persist(cli);
+            em.flush();
 
+        } catch(PersistenceException ex) {
+            System.out.println(ex.getMessage());
+        }
         return cli;
     }
 
-    public Cliente getCliente(String login) {
-        return em.find(Cliente.class, login);
+    public Cliente getCliente(Long id) {
+        return em.find(Cliente.class, id);
+    }
+ 
+    public boolean eliminarCliente(long id) {
+        try{            
+            Cliente cliente = buscarCliente(id);
+            if (cliente != null)
+                em.remove(cliente);
+        } catch(Exception ex) {
+            return false;
+        }
+        return true;
     }
 
-    public void eliminarCliente(String login) {
-        Cliente c = buscarCliente(login);
-        em.remove(c);
+    public boolean actualizarCliente(Cliente cli) {                            
+        try{           
+//            Cliente cliente = buscarCliente(cli.getId());
+//            if (cliente != null){
+                em.merge(cli);
+//            }
+//            em.flush();
+        } catch(Exception ex) {            
+            return false;                    
+        }
+        return true;
     }
 
-    public Cliente buscarCliente(String login) {
-        return em.find(Cliente.class, login);
+    public Cliente buscarCliente(long id) {
+        return em.find(Cliente.class, id);
     }
 
     public Cliente Cliente(Cliente c) {

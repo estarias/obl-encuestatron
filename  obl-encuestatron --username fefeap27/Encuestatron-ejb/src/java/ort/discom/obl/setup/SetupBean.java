@@ -37,7 +37,7 @@ public class SetupBean implements SetupLocal {
         age.setNombre("Pepe");
         age.setApellido("Agent");
         age.setEmail("");
-        age.setRol("Agente");
+        age.setRol("AGENTE");
         age.setLosClientes(null);
 
         manejadorUsuarios.alta("admin", "admin", "Juan", "Perez", "fefeap26@gmail.com");

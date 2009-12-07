@@ -8,9 +8,11 @@ public interface ManejadorClienteRemote {
 
     Cliente guardarCliente (Cliente cli);
 
-    Cliente getCliente (String id);
+    boolean actualizarCliente (Cliente cli);
+    
+    Cliente getCliente (Long id);
 
-    void eliminarCliente(String id);
+    boolean eliminarCliente(long id);
 
     List<Cliente>consultarTodos();
 }
